@@ -1,14 +1,9 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-04-23 23:32:33
+ * @LastEditTime: 2020-05-13 21:22:37
  * @Description: 
- * @FilePath: /VisAnnotation/Volumes/Dropbox/Dropbox/Project/Github_project/VisPubImg/static version/VisPubImg/public/javascripts/vis_show_images.js
- */
-/**
- * @Description show images
- * @Author: Rui Li
- * @Date: 1/15/20
+ * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
 
 //global variables
@@ -32,12 +27,9 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
     d3.selectAll(".image-div").remove();
     scrollTo(0, 0);
 
-    // $('#' + tag_name).css("border", "solid 1px #e67e22");
-	// $('#' + tag_name).css("box-shadow", "inset 0px 0px 0px 1px #e67e22");
-
     //show the images
     for (let i = 0; i < imgData.length; i++) {
-        var img_thumburl = imgData[i].thumb_url;
+        var img_thumburl = imgData[i].url;
         var img_url = imgData[i].url;
         let conf = imgData[i]['Conference'];
         //var local_url = imgData[i].local_url;
