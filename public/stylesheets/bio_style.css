@@ -46,32 +46,8 @@ body {
     padding-right: 5px;
 }
 
-.img-thumbnial{
-    padding: 2px;
-    max-height: 7rem;
-    max-width: 100%;
-
-}
-
-#score-panel{
-    background: #333;
-    padding: 0;
-    text-align: center;
-    height: 1.5rem;
-}
-
-.image-a{
-    position: relative;
-    top: 50%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-    cursor: pointer;
-}
-
 .img-panel{
-    height: 7rem;
+    height: 100px;
     text-align: center;
     border-radius: 0.25rem;
     /* position: absolute;
@@ -83,6 +59,33 @@ body {
     /* border: 1px solid #000000; */
 }
 
+.image-a{
+    position: relative;
+    /* top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%); */
+    cursor: pointer;
+}
+
+.vis-img{
+    padding: 2px;
+    /* max-height: 7rem;
+    max-width: 100%; */
+}
+
+#score-panel{
+    background: #333;
+    padding: 0;
+    text-align: center;
+    height: 1.5rem;
+}
+
+
+
+
+
 
 
 .score-text{
@@ -90,7 +93,7 @@ body {
 }
 
 .image-grid{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 /* correlation */

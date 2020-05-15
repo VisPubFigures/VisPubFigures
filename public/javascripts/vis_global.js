@@ -30,6 +30,7 @@ async function dbStart() {
 
     // G_PAP_DATA = await d3.csv('public/dataset/paperData.csv');
     G_IMG_DATA = await d3.csv("public/dataset/vispubData.csv");
+    
 
     var currentData = G_IMG_DATA.slice(0, 10);
     //params of image numbers

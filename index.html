@@ -13,201 +13,209 @@
     <!-- Custom styles -->
     <link href="public/stylesheets/bio_style.css" rel="stylesheet">
     <link href="public/stylesheets/myPagination.css" rel="stylesheet">
-    
+
 </head>
 
 
 <body>
 
-<!--  libs -->
-<script src="public/lib/jquery-3.3.1.min.js"></script>
-<script src="public/lib/d3.min.js"></script>
-<script src="public/lib/bootstrap.bundle.min.js"></script>
-<script src="public/lib/underscore-min.js"></script>
-<script src="public/lib/myPagination.js"></script>
-<!--<script src="static/lib/echarts.min.js"></script>-->
-<!--<script src="static/lib/dark.js"></script>-->
-<!--<script src="static/lib/d3-scale-chromatic.v0.3.min.js"></script>-->
-<!--<script src="static/lib/d3-selection-multi.v1.js"></script>-->
-<!--<script src="static/lib/sigmajs/sigma.js"></script>-->
-<!--<script src="static/lib/sigmajs/plugins/sigma.layout.forceAtlas2.min.js"></script>-->
-<!--<script src="static/lib/sigmajs/plugins/settings.js"></script>-->
-<!--<script src="static/lib/sigmajs/plugins/sigma.canvas.edges.labels.curve.js"></script>-->
-<!--<script src="static/lib/sigmajs/plugins/sigma.canvas.edges.labels.def.js"></script>-->
-<!--<script src="static/lib/sigmajs/plugins/sigma.canvas.edges.labels.curvedArrow.js"></script>-->
+    <!--  libs -->
+    <script src="public/lib/jquery-3.3.1.min.js"></script>
+    <script src="public/lib/d3.min.js"></script>
+    <script src="public/lib/bootstrap.bundle.min.js"></script>
+    <script src="public/lib/underscore-min.js"></script>
+    <script src="public/lib/myPagination.js"></script>
+    <!--<script src="static/lib/echarts.min.js"></script>-->
+    <!--<script src="static/lib/dark.js"></script>-->
+    <!--<script src="static/lib/d3-scale-chromatic.v0.3.min.js"></script>-->
+    <!--<script src="static/lib/d3-selection-multi.v1.js"></script>-->
+    <!--<script src="static/lib/sigmajs/sigma.js"></script>-->
+    <!--<script src="static/lib/sigmajs/plugins/sigma.layout.forceAtlas2.min.js"></script>-->
+    <!--<script src="static/lib/sigmajs/plugins/settings.js"></script>-->
+    <!--<script src="static/lib/sigmajs/plugins/sigma.canvas.edges.labels.curve.js"></script>-->
+    <!--<script src="static/lib/sigmajs/plugins/sigma.canvas.edges.labels.def.js"></script>-->
+    <!--<script src="static/lib/sigmajs/plugins/sigma.canvas.edges.labels.curvedArrow.js"></script>-->
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-inverse fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand" href="#page-top">
-            <span>VisPubFigures</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-inverse fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#page-top">
+                <span>VisPubFigures</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <!-- <li class="nav-item">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <!-- <li class="nav-item">
                     <a class="nav-link" href="#Getting Started">Getting Started</a>
                 </li> -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Explore</a>
-                </li>
-                <!-- <li class="nav-item active">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Explore</a>
+                    </li>
+                    <!-- <li class="nav-item active">
                     <a class="nav-link" href="#Memorability">Memorability</a>
                 </li> -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#Code & Data">Code & Data</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="visCite.html">VisCite</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#About">About</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-<div class="container" >
-
-
-    <div class="form-group form-inline justify-content-center">
-        <label>New keyword search: </label> &nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="autocomplete">
-            <input id="search-box" type="text" class="form-control search_input" placeholder="e.g. biomedical">&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-<!--        <input id="search-box" type="text" class="form-control search_input" placeholder="e.g. biomedical">&nbsp;&nbsp;&nbsp;&nbsp;-->
-        <button type="button" id="search-btn" class="btn btn-success">Submit</button>
-    </div>
-
-
-
-    <div class="row">
-        <div class="col-2">
-
-        </div>
-        <div class="col-8">
-            <div class="filter justify-content-center form-inline">
-                <label>Select a dataset:</label> &nbsp;&nbsp;
-                <div class="btn-group">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Selected 7 years
-                    </button>&nbsp;&nbsp;
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Selected 7 years</a>
-<!--                        <a class="dropdown-item" href="#">Biomedical Visualizations</a>-->
-                    </div>
-                </div>
-                <label>Sort by:</label> &nbsp;&nbsp;
-                <div class="btn-group">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Year
-                    </button>&nbsp;&nbsp;
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Year</a>
-                        <div class="dropdown-divider"></div>
-<!--                        <a class="dropdown-item" href="#">Number of Distinct Colors</a>-->
-<!--                        <a class="dropdown-item" href="#">Number of Entropy</a>-->
-<!--                        <a class="dropdown-item" href="#">Feature Congestion</a>-->
-<!--                        <a class="dropdown-item" href="#">Memorability (hi to lo)</a>-->
-<!--                        <a class="dropdown-item" href="#">Memorability (lo to hi)</a>-->
-<!--                        <div class="dropdown-divider"></div>-->
-<!--                        <a class="dropdown-item" href="#">Hit rate (hi to lo)</a>-->
-<!--                        <a class="dropdown-item" href="#">Hit rate (lo to hi)</a>-->
-                    </div>
-                </div>
-                <label>Colored by:</label>&nbsp;&nbsp;
-                <div class="btn-group">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Conference
-                    </button>&nbsp;&nbsp;
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Conference</a>
-                        <a class="dropdown-item" href="#">Visualization Type</a>
-                    </div>
-                </div>
-            </div>
-            <div class="conf-legend-div form-inline">
-                <label>Vis:&nbsp;</label>
-                <span class="legend-rec" style="background-color: #e74c3c;"></span>
-                &nbsp;&nbsp;&nbsp;
-                <label>SciVis:&nbsp;</label>
-                <span class="legend-rec" style="background-color: #3498db;"></span>
-                &nbsp;&nbsp;&nbsp;
-                <label>InfoVis:&nbsp;</label>
-                <span class="legend-rec" style="background-color: #f1c40f;"></span>
-                &nbsp;&nbsp;&nbsp;
-                <label>VAST:&nbsp;</label>
-                <span class="legend-rec" style="background-color: #9b59b6;"></span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Code & Data">Code & Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="visCite.html">VisCite</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#About">About</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="col-2">
-            <!--            <div class="justify-content-center form-inline">-->
-            <!--                size:-->
-            <!--            </div>-->
-        </div>
+    </nav>
 
 
-    </div>
-
-</div>
-
-<hr>
-
-<div class="container-fluid">
     <div class="container">
-        <div id="pagination" class="pagination"></div>
+
+
+        <div class="form-group form-inline justify-content-center">
+            <label>New keyword search: </label> &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="autocomplete">
+                <input id="search-box" type="text" class="form-control search_input"
+                    placeholder="e.g. biomedical">&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <!--        <input id="search-box" type="text" class="form-control search_input" placeholder="e.g. biomedical">&nbsp;&nbsp;&nbsp;&nbsp;-->
+            <button type="button" id="search-btn" class="btn btn-success">Submit</button>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-2">
+
+            </div>
+            <div class="col-8">
+                <div class="filter justify-content-center form-inline">
+                    <label>Select a dataset:</label> &nbsp;&nbsp;
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Selected 7 years
+                        </button>&nbsp;&nbsp;
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Selected 7 years</a>
+                            <!--                        <a class="dropdown-item" href="#">Biomedical Visualizations</a>-->
+                        </div>
+                    </div>
+                    <label>Sort by:</label> &nbsp;&nbsp;
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Year
+                        </button>&nbsp;&nbsp;
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Year</a>
+                            <div class="dropdown-divider"></div>
+                            <!--                        <a class="dropdown-item" href="#">Number of Distinct Colors</a>-->
+                            <!--                        <a class="dropdown-item" href="#">Number of Entropy</a>-->
+                            <!--                        <a class="dropdown-item" href="#">Feature Congestion</a>-->
+                            <!--                        <a class="dropdown-item" href="#">Memorability (hi to lo)</a>-->
+                            <!--                        <a class="dropdown-item" href="#">Memorability (lo to hi)</a>-->
+                            <!--                        <div class="dropdown-divider"></div>-->
+                            <!--                        <a class="dropdown-item" href="#">Hit rate (hi to lo)</a>-->
+                            <!--                        <a class="dropdown-item" href="#">Hit rate (lo to hi)</a>-->
+                        </div>
+                    </div>
+                    <label>Colored by:</label>&nbsp;&nbsp;
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Conference
+                        </button>&nbsp;&nbsp;
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Conference</a>
+                            <a class="dropdown-item" href="#">Visualization Type</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="conf-legend-div form-inline">
+                    <label>Vis:&nbsp;</label>
+                    <span class="legend-rec" style="background-color: #e74c3c;"></span>
+                    &nbsp;&nbsp;&nbsp;
+                    <label>SciVis:&nbsp;</label>
+                    <span class="legend-rec" style="background-color: #3498db;"></span>
+                    &nbsp;&nbsp;&nbsp;
+                    <label>InfoVis:&nbsp;</label>
+                    <span class="legend-rec" style="background-color: #f1c40f;"></span>
+                    &nbsp;&nbsp;&nbsp;
+                    <label>VAST:&nbsp;</label>
+                    <span class="legend-rec" style="background-color: #9b59b6;"></span>
+                </div>
+            </div>
+            <div class="col-2">
+                <form class="form-inline">
+                    <label>Image size</label>
+                    <input type="range" id="image-size-slider" class="custom-range" value="25" min="12" max="75" />
+                </form>
+                
+                <!--            <div class="justify-content-center form-inline">-->
+                <!--                size:-->
+                <!--            </div>-->
+            </div>
+
+
+        </div>
+
     </div>
 
-    <div id="image-gallery" class="row text-center text-lg-left">
+    <hr>
 
-    </div>
-    <!-- The Modal to show original img-->
-    <div id="myModal" class="modal">
-        <span class="close">&times;</span>
-        <div class="ori-img-container">
-            <img class="modal-content" id="ori-img">
-        </div>
-        <div class="meta-info">
-            <span class="blue-font">Paper: </span></span>><span id="paper-info" class="caption"></span><br>
-            <span class="blue-font">Author: </span><span id="author-info" class="caption"></span><br>
-            <!-- <span class="blue-font">Journal: </span><span id="journal-info" class="caption">
-                        IEEE Transactions on Visualization and Computer Graphics</span><br> -->
-            <span class="blue-font">Year: </span><span id="year-info" class="caption"></span><br>
-            <span class="blue-font">Paper URL : </span><a id="link-info" class="caption" target="blank"></a><br>
-            <span class="blue-font">Paper Type: </span><span id="paper-type-info" class="caption"></span><br>
-            <span class="blue-font">Author Keywords: </span><span id="keyword-info" class="caption"></span>
-        </div>
-        <!--        show other images-->
+    <div class="container-fluid">
         <div class="container">
+            <div id="pagination" class="pagination"></div>
+            
+        </div>
+
+        <div id="image-gallery" class="row text-center text-lg-left">
 
         </div>
+        <!-- The Modal to show original img-->
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <div class="ori-img-container">
+                <img class="modal-content" id="ori-img">
+            </div>
+            <div class="meta-info">
+                <span class="blue-font">Paper: </span></span>><span id="paper-info" class="caption"></span><br>
+                <span class="blue-font">Author: </span><span id="author-info" class="caption"></span><br>
+                <!-- <span class="blue-font">Journal: </span><span id="journal-info" class="caption">
+                        IEEE Transactions on Visualization and Computer Graphics</span><br> -->
+                <span class="blue-font">Year: </span><span id="year-info" class="caption"></span><br>
+                <span class="blue-font">Paper URL : </span><a id="link-info" class="caption" target="blank"></a><br>
+                <span class="blue-font">Paper Type: </span><span id="paper-type-info" class="caption"></span><br>
+                <span class="blue-font">Author Keywords: </span><span id="keyword-info" class="caption"></span>
+            </div>
+            <!--        show other images-->
+            <div class="container">
+
+            </div>
+        </div>
+
     </div>
 
-</div>
-
-<!--<div class="container">-->
-<!--    <div id="pagination" class="pagination"></div>-->
-<!--</div>-->
+    <!--<div class="container">-->
+    <!--    <div id="pagination" class="pagination"></div>-->
+    <!--</div>-->
 
 
 
-<!--<footer>-->
-<!--    -->
-<!--</footer>-->
+    <!--<footer>-->
+    <!--    -->
+    <!--</footer>-->
 
-<script type="text/javascript" src="public/javascripts/vis_global.js"></script>
-<script type="text/javascript" src="public/javascripts/utils.js"></script>
-<script type="text/javascript" src="public/javascripts/image_filter.js"></script>
-<script type="text/javascript" src="public/javascripts/vis_show_images.js"></script>
+    <script type="text/javascript" src="public/javascripts/vis_global.js"></script>
+    <script type="text/javascript" src="public/javascripts/utils.js"></script>
+    <script type="text/javascript" src="public/javascripts/image_filter.js"></script>
+    <script type="text/javascript" src="public/javascripts/vis_show_images.js"></script>
 
 
 </body>
+
 </html>
