@@ -9,14 +9,21 @@ var ifDB = 0; //if use database
 var G_PAP_DATA = new Object(); // paper dataset
 var G_IMG_DATA = new Object(); // image dataset
 var G_KEYWORDS = null;
+var ifAllImage = 1;  //if all image are presented
+var visMode = 1; //1: image mode, 2: paper mode
+var yearPageDic = {}; //store the page index of each year for images
+var yearPageDicPaper = {};  //store the 
+var currentKeywords = ''; //store the current keywords results
+var currentYearRange = [1990, 2019]; //store the current year range
+var currentConferences = ['Vis', 'SciVis', 'InfoVis', 'VAST'];
 
 var pageUI = new Object();
 
 $(document).ready(function () {
-    if(ifDB == 0){
+    if (ifDB == 0) {
         dbStart();
     }
-    else{
+    else {
 
     }
 });
@@ -30,83 +37,322 @@ async function dbStart() {
 
     // G_PAP_DATA = await d3.csv('public/dataset/paperData.csv');
     G_IMG_DATA = await d3.csv("public/dataset/vispubData.csv");
-    
+    G_IMG_DATA = sortImageByYear(G_IMG_DATA);  //sort images by year, then sort by conference, the sort by first page.
 
-    var currentData = G_IMG_DATA.slice(0, 10);
     //params of image numbers
     var img_count = G_IMG_DATA.length;
     var img_per_page = 204;
     var total_pages = Math.ceil(img_count / img_per_page);
 
+    //group images to paper dataset
+    G_PAP_DATA = extractPaperData(G_IMG_DATA);
+    //console.log(G_PAP_DATA);
+
+    //create the dictionary to store the scent information, i.e. 1990: 1, 1995: 5, year: pageIndex
+    resetYearIndexDic(G_IMG_DATA);
+    resetYearIndexDicPaper(G_PAP_DATA);
+
+    //set up multi-page interface
     pageUI = new Page({
         id: 'pagination',
         pageTotal: total_pages, //total pages
         pageAmount: img_per_page,  //numbers of items per page
         dataTotal: img_count, //number of all items
-        curPage:1, //initial page number
+        curPage: 1, //initial page number
         pageSize: 10, //how many papes divides
-        showPageTotalFlag:true, //show data statistics
-        showSkipInputFlag:true, //show skip
+        showPageTotalFlag: true, //show data statistics
+        showSkipInputFlag: true, //show skip
         getPage: function (page) {
             //get current page number
-            let currentData = G_IMG_DATA.slice(img_per_page*(page-1),img_per_page*page);
+            let currentData = G_IMG_DATA.slice(img_per_page * (page - 1), img_per_page * page);
             presentImg(currentData, 0, 0, 1, 0);
         }
     });
 
+    //present images
+    if (visMode == 1) {
+        ifAllImage = 1;
+        var currentData = G_IMG_DATA.slice(img_per_page * 0, img_per_page * 1);
+        presentImg(currentData, 0, 0, 1, 0);
+    }
+    else if (visMode == 2) {
+        ifAllImage = 0;
+        let img_count = G_PAP_DATA.length;
+        let img_per_page = 20;
+        let total_pages = Math.ceil(img_count / img_per_page);
+        pageUI.pageTotal = total_pages;
+        pageUI.pageAmount = img_per_page;
+        pageUI.dataTotal = img_count;
+        pageUI.getPage = function (page) {
+            let currentData = G_PAP_DATA.slice(img_per_page * (page - 1), img_per_page * page);
+            presentUPPapers(currentData, img_count);
+        };
+        pageUI.init();
+        var currentData = G_PAP_DATA.slice(img_per_page * 0, img_per_page * 1);
+        presentUPPapers(currentData, img_count);
+    }
+
+
+    //set up keywords
     G_KEYWORDS = getAllKeywords(G_IMG_DATA);
     autocomplete(document.getElementById("search-box"), G_KEYWORDS);
 
-    var currentData = G_IMG_DATA.slice(img_per_page*0, img_per_page*1);
-    presentImg(currentData, 0, 0, 1, 0);
-
-    //search event
+    //filter keywords
     $('#search-btn').unbind('click').click(function () {
     });
     $("#search-btn").click(function () {
         var keyword = $('#search-box').val();
-        keywordSearch(keyword);
+        currentKeywords = keyword;
+        filterData();
+    });
+
+    //filter conferences
+    $('input[name="visOptions"]').unbind('click').click(function () {
+    });
+    $('input[name="visOptions"]').click(function () {
+        let activeConf = [];
+        if ($('#vis-check').prop("checked")) {
+            $('#vis-check-label').css('background', '#c0392b');
+            $('#vis-check-label').css('border', '0px');
+            activeConf.push('Vis');
+        }
+        else {
+            $('#vis-check-label').css('background', '#fff');
+            $('#vis-check-label').css('border', '1px solid #95a5a6');
+        }
+
+        if ($('#scivis-check').prop("checked")) {
+            $('#scivis-check-label').css('background', '#2980b9');
+            $('#scivis-check-label').css('border', '0px');
+            activeConf.push('SciVis');
+        }
+        else {
+            $('#scivis-check-label').css('background', '#fff');
+            $('#scivis-check-label').css('border', '1px solid #95a5a6');
+        }
+
+        if ($('#infovis-check').prop("checked")) {
+            $('#infovis-check-label').css('background', '#f39c12');
+            $('#infovis-check-label').css('border', '0px');
+            activeConf.push('InfoVis');
+        }
+        else {
+            $('#infovis-check-label').css('background', '#fff');
+            $('#infovis-check-label').css('border', '1px solid #95a5a6');
+        }
+
+        if ($('#vast-check').prop("checked")) {
+            $('#vast-check-label').css('background', '#8e44ad');
+            $('#vast-check-label').css('border', '0px');
+            activeConf.push('VAST');
+        }
+        else {
+            $('#vast-check-label').css('background', '#fff');
+            $('#vast-check-label').css('border', '1px solid #95a5a6');
+        }
+        currentConferences = activeConf;
+        filterData();
+    });
+
+    //filter years
+    function yearString(number) {
+        return number.toString();
+    }
+    $(".js-range-slider").ionRangeSlider({
+        type: "double",
+        grid: true,
+        min: '1990',
+        max: '2019',
+        step: 5,
+        skin: "square",
+        prettify: yearString,
+        onChange: function (data) {
+
+        },
+        onFinish: function (data) {
+            // fired on every range slider update
+            let leftVal = data.from;
+            let rightVal = data.to;
+            currentYearRange[0] = leftVal;
+            currentYearRange[1] = rightVal;
+            filterData();
+        },
+    });
+
+
+    //choose mode, image mode or paper mode
+    $('#image-mode').unbind('click').click(function () {
+    });
+    $("#image-mode").click(function () {
+        visMode = 1;
+        ifAllImage = 1;
+        $("#image-mode").css('border', 'solid 2px #333');
+        $("#paper-mode").css('border', '0px');
+        filterData();
+
+
+    });
+    $('#paper-mode').unbind('click').click(function () {
+    });
+    $("#paper-mode").click(function () {
+        visMode = 2;
+        ifAllImage = 0;
+        $("#image-mode").css('border', '0px');
+        $("#paper-mode").css('border', 'solid 2px #333');
+        filterData();
     });
 
 
 }
 
+
 /**
- * refresh results based on the keyword search
- * @param keyword
+ * filter the data given current conditions
  */
-function keywordSearch(keyword) {
+function filterData() {
+    console.log(currentYearRange, currentConferences, currentKeywords);
+    //1. filtering data by year
+    let minYear = currentYearRange[0];
+    let maxYear = currentYearRange[1];
+    var data = filterDataByYear(G_IMG_DATA, minYear, maxYear);
+    //2. filtering data by conference
+    data = filterDataByConference(data, currentConferences);
+    //3. filtering data by keywords, determine whether show year scent
+    if (currentKeywords == '') {
+        ifAllImage = 1;
+    }
+    else {
+        ifAllImage = 0;
+        data = filterDataByKeywords(data, currentKeywords);
+    }
 
-    var keywordData = filterDataByKeywords(keyword);
-    console.log(keywordData);
+    var paperData = extractPaperData(data);
 
-    var img_count = keywordData.length;
-    var img_per_page = 200;
-    var total_pages = Math.ceil(img_count / img_per_page);
+    //4. reset year index dictionary
+    resetYearIndexDic(data);
+    //5. update the interface
+    if (visMode == 1) {
+        var img_count = data.length;
+        var img_per_page = 204;
+        var total_pages = Math.ceil(img_count / img_per_page);
 
-    pageUI.pageTotal = total_pages;
-    pageUI.pageAmount = img_per_page;
-    pageUI.dataTotal = img_count;
-    pageUI.getPage = function(page){
-        let currentData = keywordData.slice(img_per_page*(page-1),img_per_page*page);
+        pageUI.pageTotal = total_pages;
+        pageUI.pageAmount = img_per_page;
+        pageUI.dataTotal = img_count;
+        pageUI.getPage = function (page) {
+            let currentData = data.slice(img_per_page * (page - 1), img_per_page * page);
+            presentImg(currentData, 0, 0, 1, 0);
+        };
+        pageUI.init();
+        var currentData = data.slice(img_per_page * 0, img_per_page * 1);
         presentImg(currentData, 0, 0, 1, 0);
-    };
-    pageUI.init();
-    var currentData = keywordData.slice(img_per_page*0, img_per_page*1);
-    presentImg(currentData, 0, 0, 1, 0);
-
-
+    }
+    else if (visMode == 2) {
+        ifAllImage = 0;
+        let img_count = paperData.length;
+        let img_per_page = 20;
+        let total_pages = Math.ceil(img_count / img_per_page);
+        pageUI.pageTotal = total_pages;
+        pageUI.pageAmount = img_per_page;
+        pageUI.dataTotal = img_count;
+        pageUI.getPage = function (page) {
+            let currentData = paperData.slice(img_per_page * (page - 1), img_per_page * page);
+            presentUPPapers(currentData, img_count);
+        };
+        pageUI.init();
+        var currentData = paperData.slice(img_per_page * 0, img_per_page * 1);
+        presentUPPapers(currentData, img_count);
+    }
 
 }
 
+/**
+ * reset the year index pair for image dataset
+ * @param {} data 
+ */
+function resetYearIndexDic(data) {
+    let lastYear = -1;
+    yearPageDic = {};
+    data.forEach((d, i) => {
+        if (d['Year'] != lastYear) {
+            yearPageDic[d['Year']] = Math.floor(i / 204) + 1;
+            lastYear = d['Year'];
+        }
+    });
+}
 
 
+function resetYearIndexDicPaper(data) {
+    let lastYear = -1;
+    yearPageDicPaper = {};
+    data.forEach((d, i) => {
+        if (d['Year'] != lastYear) {
+            yearPageDicPaper[d['Year']] = Math.floor(i / 204) + 1;
+            lastYear = d['Year'];
+        }
+    });
+}
 
 
+/**
+ * sort images by year
+ * @param {} arr 
+ */
+function sortImageByYear(arr) {
+    arr.sort(function (a, b) {
+        let imageIDA = a.recodeRank;
+        let imageIDB = b.recodeRank;
+        return imageIDA - imageIDB;
+    });
+    return arr;
+}
 
 
+/**
+ * group image data into 2D array, where axis = 0 is the paper, axis = 1 correspond to the images
+ * @param {} imgData 
+ */
+function extractPaperData(imgData) {
 
+    //console.log(imgData);
 
+    var paperData = [];
+    var paperDic = {};
+
+    imgData.forEach((d, i) => {
+        let paperTitle = d['Paper Title'];
+        if (paperTitle in paperDic) {
+            if (d['isUP'] == 1) {
+                paperDic[paperTitle]['Figures'].push(d);
+            }
+        }
+        else {
+            let subDataDic = {}; //store the paper information
+            subDataDic['Paper Title'] = d['Paper Title'];
+            subDataDic['Conference'] = d['Conference'];
+            subDataDic['Keywords Author'] = d['Keywords Author'];
+            subDataDic['Paper DOI'] = d['Paper DOI'];
+            subDataDic['Paper FirstPage'] = d['Paper FirstPage'];
+            subDataDic['Paper LastPage'] = d['Paper LastPage'];
+            subDataDic['Paper type'] = d['Paper type'];
+            subDataDic['Year'] = d['Year'];
+            subDataDic['isUP'] = d['isUP'];
+            subDataDic['Author'] = d['Author'];
+            subDataDic['paper_url'] = d['paper_url'];
+            subDataDic['Figures'] = [d];
+            if (d['isUP'] == 1) {
+                paperDic[paperTitle] = subDataDic;
+            }
+        }
+    });
+
+    Object.keys(paperDic).forEach((d, i) => {
+        paperData.push(paperDic[d]);
+    });
+
+    return paperData;
+
+}
 
 
 

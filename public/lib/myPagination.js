@@ -57,6 +57,7 @@ Page.prototype = {
             var li = document.createElement('li');
             if (item == that.curPage) {
                 li.className = 'active';
+                
             } else {
                 li.onclick = function () {
                     that.curPage = parseInt(this.innerHTML);
@@ -64,6 +65,7 @@ Page.prototype = {
                     that.getPage(that.curPage);
                 };
             }
+            li.id = 'page-'+item;
             li.innerHTML = item;
             that.ul.appendChild(li);
         });
@@ -87,6 +89,7 @@ Page.prototype = {
         var li = document.createElement('li');
         li.innerHTML = 'First Page';
         this.ul.appendChild(li);
+        showYearScent();
         li.onclick = function () {
             var val = parseInt(1);
             that.curPage = val;
@@ -164,6 +167,7 @@ Page.prototype = {
         var li = document.createElement('li');
         li.innerHTML = 'Last page';
         this.ul.appendChild(li);
+        showYearScent();
         li.onclick = function () {
             var yyfinalPage = that.pageTotal;
             var val = parseInt(yyfinalPage);
@@ -215,6 +219,7 @@ Page.prototype = {
         var li3 = document.createElement('li');
         li3.innerHTML = that.dataTotal + '&nbspimages in total';
         li3.className = 'totalPage';
+        li3.id = 'totalPageText';
         this.ul.appendChild(li3);
     }
 };
