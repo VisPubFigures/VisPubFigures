@@ -122,7 +122,7 @@ var stacked_layout = function() {
         // .transition()
         // .duration(2000)    
         .style('left', tri.x0+'px')
-        .style('top', y+'px')
+        .style('top', 36+'px')
         .style('position', 'absolute');
 
 
@@ -130,7 +130,7 @@ var stacked_layout = function() {
         // .transition()   
         // .duration(2000)    
         .style('left', tri.x0 + 800+'px')
-        .style('top', y+'px')
+        .style('top', 36+'px')
         .style('position', 'absolute');
 
 

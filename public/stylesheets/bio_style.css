@@ -5,6 +5,10 @@ body {
     padding-top: 4.5rem;
 }
 
+.search-bar{
+    justify-content: left !important;
+}
+
 .btn-light{
     background-color: #f1f1f1 !important;
     border-color: #ced4da;
@@ -33,7 +37,7 @@ body {
 .conf-legend-div {
     padding-top: 10px;
     text-align: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 .legend-rec {
@@ -636,6 +640,10 @@ input[type=submit] {
 
 .unicycle__seat, .unicycle__pedal-arms {
     height: 0.1em;
+}
+
+.introduction-text{
+    font-size:1.0rem;
 }
 
 .unicycle__seat {

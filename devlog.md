@@ -1,7 +1,7 @@
 <!--
  * @Author: Rui Li
  * @Date: 2020-05-13 20:47:58
- * @LastEditTime: 2020-05-24 19:58:57
+ * @LastEditTime: 2020-05-24 22:27:57
  * @Description: 
  * @FilePath: /VisPubFigures/devlog.md
  -->
@@ -38,3 +38,10 @@ https://www.codicode.com/art/how_to_draw_on_a_html5_canvas_with_a_mouse.aspx
 draw rectangle
 https://cancerberosgx.github.io/demos/misc/fabricRectangleFreeDrawing.html?d=9
 
+1. remove select toolbox
+2. shorten the search box
+3. add author droplist
+4. change the title of the tool
+5. only show dots on navigation bar
+6. change the color of year slider
+7. change the correctness of UP papers

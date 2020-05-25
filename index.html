@@ -57,9 +57,9 @@
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#Code & Data">Code & Data</a>
                     </li> -->
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="visCite.html">VisCite</a>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="about.html">About</a>
                     </li>
@@ -71,28 +71,38 @@
 
     <div class="container-fluid">
 
+        <div class="row">
+            <div class="col-1">
 
-        <div class="form-group form-inline justify-content-center">
-            <a href="http://keyvis.org/index.php" target="_blank"><img src="public/images/keyvisicon2.png"
-                    id="keyvis-icon"></a>
-            &nbsp;&nbsp;
-            <label>Keyword(s) search: </label> &nbsp;&nbsp;&nbsp;&nbsp;
-            <div class="autocomplete">
-                <input id="search-box" type="text" class="form-control search_input"
-                    placeholder="e.g. biomedical">
             </div>
-            
-            <!--        <input id="search-box" type="text" class="form-control search_input" placeholder="e.g. biomedical">&nbsp;&nbsp;&nbsp;&nbsp;-->
-            <button type="button" id="search-btn" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
-            <!--  -->
-            <form class="form-inline justify-content-center">
-                -&nbsp;<input type="range" id="image-size-slider" class="custom-range" value="25" min="12" max="100" />+
-            </form>
-            <img src="public/images/brick.png" class="mode-icon" id="image-mode">
-            &nbsp;&nbsp;
-            <img src="public/images/list.png" class="mode-icon" id="paper-mode">
+            <div class="col-10">
+                <div class="form-group form-inline justify-content-center search-bar">
+                    <a href="http://keyvis.org/index.php" target="_blank"><img src="public/images/keyvisicon2.png"
+                            id="keyvis-icon"></a>
+                    &nbsp;&nbsp;
+                    <label>Keyword(s) search: </label> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="autocomplete">
+                        <input id="search-box" type="text" class="form-control search_input"
+                            placeholder="e.g. biomedical">
+                    </div>
+                    
+                    <!--        <input id="search-box" type="text" class="form-control search_input" placeholder="e.g. biomedical">&nbsp;&nbsp;&nbsp;&nbsp;-->
+                    <button type="button" id="search-btn" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
+                    <!--  -->
+                    <form class="form-inline justify-content-center">
+                        -&nbsp;<input type="range" id="image-size-slider" class="custom-range" value="25" min="12" max="100" />+
+                    </form>
+                    <img src="public/images/brick.png" class="mode-icon" id="image-mode">
+                    &nbsp;&nbsp;
+                    <img src="public/images/list.png" class="mode-icon" id="paper-mode">
+        
+                </div>
+            </div>
+            <div class="col-1">
 
+            </div>
         </div>
+        
 
 
 
@@ -168,9 +178,7 @@
                         </div>
                         
                     </div>
-                    <div class="col-4">
-                        
-                    </div>
+                    
 
 
                 </div>

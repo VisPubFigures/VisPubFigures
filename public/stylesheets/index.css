@@ -197,14 +197,14 @@ h3{
 }
 
 #selection{
-  min-height: 110px;
+  /* min-height: 110px; */
   /*max-height: 100px;*/
-  min-width: 700px;
-  max-width: 700px;
+  min-width: 900px;
+  max-width: 900px;
   border: solid 3px orange;
   border-radius: 15px;
   padding: 10px;
-
+  padding-bottom: 0px;
   display: none;
 }
 
@@ -212,10 +212,10 @@ h3{
   min-height: 100px;
   /*max-height: px;*/
   /*max-height: 100px;*/
-  min-width: 700px;
-  max-width: 700px;
+  min-width: 900px;
+  max-width: 900px;
   padding: 10px;
-  
+  padding-bottom: 0px;
   /*border: solid 3px steelblue;*/
   /*border-radius: 15px;*/
 }
