@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-05-24 23:52:32
- * @LastEditTime: 2020-05-25 00:04:34
+ * @LastEditTime: 2020-05-25 00:10:33
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/addReferences.js
  */ 
@@ -34,7 +34,7 @@ function showReference(data) {
         }
 
 		var refe_list = document.createElement("div");
-        refe_list.innerHTML = '<span>['+(i+1)+'] '+data[i]['Author Names']+', '+data[i]['Paper Title']+ 
+        refe_list.innerHTML = '<span>['+(i)+'] '+data[i]['Author Names']+', '+data[i]['Paper Title']+ 
         '<span class="italy-font">'+
         publisher+'</span>'+
         data[i]['First Page'] + '-' + data[i]['Last Page']+ ', ' + 
