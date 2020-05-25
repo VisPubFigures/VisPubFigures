@@ -9,6 +9,7 @@ var ifDB = 0; //if use database
 var G_PAP_DATA = new Object(); // paper dataset
 var G_IMG_DATA = new Object(); // image dataset
 var G_KEYWORDS = null;
+var G_AUTHORS = null; //all authors
 var ifAllImage = 1;  //if all image are presented
 var visMode = 1; //1: image mode, 2: paper mode
 var yearPageDic = {}; //store the page index of each year for images
@@ -16,6 +17,7 @@ var yearPageDicPaper = {};  //store the
 var currentKeywords = ''; //store the current keywords results
 var currentYearRange = [1990, 2019]; //store the current year range
 var currentConferences = ['Vis', 'SciVis', 'InfoVis', 'VAST'];
+var currentAuthors = 'All';
 
 var pageUI = new Object();
 
@@ -96,6 +98,31 @@ async function dbStart() {
     //set up keywords
     G_KEYWORDS = getAllKeywords(G_IMG_DATA);
     autocomplete(document.getElementById("search-box"), G_KEYWORDS);
+
+    //set up author filters
+    G_AUTHORS = getAllAuthors(G_IMG_DATA);
+    G_AUTHORS = G_AUTHORS.filter(function (el) {
+        return el != "";
+    });
+    G_AUTHORS = G_AUTHORS.sort((a, b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase());
+    });
+    var auth = d3.select('#authors');
+    auth.selectAll("option")
+        .data(G_AUTHORS)
+        .enter().append('option')
+        .attr('value', function (d) {
+            return d
+        })
+        .text(function (d) { return d });
+
+    $("#authors").selectpicker("refresh");
+    //filter authors
+    auth.on('change', function () {
+        currentAuthors = this.options[this.selectedIndex].value;
+        filterData();
+    })
+
 
     //filter keywords
     $('#search-btn').unbind('click').click(function () {
@@ -210,7 +237,7 @@ async function dbStart() {
  * filter the data given current conditions
  */
 function filterData() {
-    console.log(currentYearRange, currentConferences, currentKeywords);
+    console.log(currentYearRange, currentConferences, currentKeywords, currentAuthors);
     //1. filtering data by year
     let minYear = currentYearRange[0];
     let maxYear = currentYearRange[1];
@@ -224,6 +251,14 @@ function filterData() {
     else {
         ifAllImage = 0;
         data = filterDataByKeywords(data, currentKeywords);
+    }
+    //4. filtering data by authors
+    if(currentAuthors == 'All'){
+        ifAllImage = 1;
+    }
+    else{
+        ifAllImage = 0;
+        data = filterDataByAuthors(data, currentAuthors);
     }
 
     var paperData = extractPaperData(data);

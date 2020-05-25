@@ -615,7 +615,7 @@ Build date: 2019-12-19 16:51:02
 .irs--square.irs-with-grid {
   position: relative;
   top: 10%;
-  height: 60px;
+  height: 50px;
 }
 .irs--square .irs-line {
   top: 31px;
@@ -624,8 +624,8 @@ Build date: 2019-12-19 16:51:02
 }
 .irs--square .irs-bar {
   top: 31px;
-  height: 4px;
-  background-color: #2c3e50;
+  height: 5px;
+  background-color:#0082f9 ;
 }
 .irs--square .irs-shadow {
   height: 2px;
@@ -636,18 +636,25 @@ Build date: 2019-12-19 16:51:02
   top: 25px;
   width: 16px;
   height: 16px;
-  border: 3px solid #2c3e50;
-  background-color: white;
+  border-radius: 1rem;
+  border: 3px solid #0082f9;
+  background-color: #0082f9;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+  cursor: pointer;
 }
 .irs--square .irs-handle.state_hover,
 .irs--square .irs-handle:hover {
-  background-color: #f0f6ff;
+  background-color: #0082f9;
+}
+.irs--square .irs-handle:active {
+  background-color: #b3d8fd;
+  border: 3px solid #b3d8fd;
 }
 .irs--square .irs-min,
 .irs--square .irs-max {
+  display: none;
   color: #333;
   font-size: 14px;
   line-height: 1;
@@ -658,12 +665,14 @@ Build date: 2019-12-19 16:51:02
 .irs--square .irs-from,
 .irs--square .irs-to,
 .irs--square .irs-single {
-  font-size: 14px;
-  line-height: 1;
+  font-size: 0.8rem;
+  top: 5px;
+  line-height: 0.8;
   text-shadow: none;
   padding: 3px 5px;
-  background-color: #2c3e50;
-  color: white;
+  background-color: #dee2e6;
+  border-radius: 0.2rem;
+  color: #343a40;
 }
 .irs--square .irs-grid {
   height: 25px;

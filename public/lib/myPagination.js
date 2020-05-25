@@ -137,7 +137,7 @@ Page.prototype = {
             }
         } else {
             // console.error('当前页数不能大于总页数');
-            console.error("current pages can not larger than total pages");
+            //console.error("current pages can not larger than total pages");
         }
         if (!this.pageSize) {
             // console.error('显示页数不能为空或者0');

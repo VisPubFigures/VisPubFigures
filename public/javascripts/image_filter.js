@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-01-16 12:03:29
- * @LastEditTime: 2020-05-16 19:03:39
+ * @LastEditTime: 2020-05-24 21:18:11
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/image_filter.js
  */ 
@@ -22,6 +22,19 @@ function getAllKeywords(data){
     return uniq_keywords;
 }
 
+
+function getAllAuthors(data){
+    var author_list = [];
+    for(let i = 0;i < data.length;i++){
+        let authors = data[i]["Author"].split(';');
+        for(let j = 0; j < authors.length; j++){
+            author_list.push(authors[j]);
+        }
+    }
+    var uniq_authors = [...new Set(author_list)];
+    return uniq_authors;
+}
+
 /**
  * return a subset of datasets based on the given keyword
  * @param keyword
@@ -30,6 +43,18 @@ function filterDataByKeywords(data, keyword){
     var filterData = data.filter(function(item) {
         //console.log(item['Keywords Author']);
         return item['Keywords Author'].toLowerCase().includes(keyword);
+    });
+    return filterData;
+}
+
+/**
+ * return a subset of datasets based on the given authors
+ * @param {} data 
+ * @param {*} author 
+ */
+function filterDataByAuthors(data, author){
+    var filterData = data.filter(function(item) {
+        return item['Author'].split(';').includes(author);
     });
     return filterData;
 }

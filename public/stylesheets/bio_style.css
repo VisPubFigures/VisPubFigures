@@ -2,7 +2,7 @@ body {
     /*padding: 50px;*/
     /*background: #3c3b38;*/
     /* background: #eaebeb; */
-    padding-top: 70px;
+    padding-top: 4.5rem;
 }
 
 .red-font {
@@ -18,7 +18,7 @@ body {
 }
 
 .search_input {
-    width: 90% !important;
+    width: 97% !important;
 }
 
 .filter {
@@ -318,7 +318,7 @@ body {
 .autocomplete {
     /*the container must be positioned relative:*/
     position: relative;
-    width: 40%;
+    width: 30%;
     display: inline-block;
 }
 
@@ -358,7 +358,7 @@ input[type=submit] {
 }
 
 .autocomplete-items div {
-    padding: 10px;
+    padding: 8px;
     cursor: pointer;
     background-color: #fff;
     border-bottom: 1px solid #d4d4d4;
@@ -378,18 +378,20 @@ input[type=submit] {
 .year-scent {
     position: absolute;
     font-size: 0.8rem;
-    border-left: 1px solid;
+    /* border-left: 1px solid; */
     /* border-radius: 0.25rem; */
     text-align: center;
 }
 
 .year-scent-inner {
     border-left: 0px;
-    border-top: 1px solid #34495e;
-    height: 20px;
-    background: #34495e;
+    /* border-top: 1px solid #34495e; */
+    /* height: 20px; */
+    height:10px;
+    
+    background: #99a6ad;
     color: #eee;
-    /* border-radius: 0.25rem; */
+    border-radius: 0.5rem;
 }
 
 /* .squaredThree */
@@ -670,3 +672,5 @@ input[type=submit] {
         --fg: #f1f1f1;
     }
 }
+
+

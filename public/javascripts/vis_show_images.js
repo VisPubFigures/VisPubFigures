@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-05-16 23:42:32
+ * @LastEditTime: 2020-05-20 22:40:18
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -273,20 +273,34 @@ function showYearScent() {
                 let pos_top = document.getElementById('page-' + pageIndex).getBoundingClientRect().y - 30;
                 let page_width = document.getElementById('page-' + pageIndex).getBoundingClientRect().width;
                 //console.log(pageIndex, pos_left, pos_top, page_width);
+                // let html_text = `
+                //     <div class="year-scent-inner">
+                //         <label>${d}</label>
+                //     </div>
+                // `;
                 let html_text = `
                     <div class="year-scent-inner">
-                        <label>${d}</label>
+                        
                     </div>
                 `;
+                // var div = d3.select("body").append("div")
+                //     .attr('pointer-events', 'none')
+                //     .attr("class", "year-scent")
+                //     .style("opacity", 1)
+                //     .html(html_text)
+                //     .style("width", page_width + 'px')
+                //     .style("height", 30 + 'px')
+                //     .style("left", pos_left + 'px')
+                //     .style("top", pos_top + 'px');
                 var div = d3.select("body").append("div")
                     .attr('pointer-events', 'none')
                     .attr("class", "year-scent")
                     .style("opacity", 1)
                     .html(html_text)
-                    .style("width", page_width + 'px')
-                    .style("height", 30 + 'px')
-                    .style("left", pos_left + 'px')
-                    .style("top", pos_top + 'px');
+                    .style("width", 10 + 'px')
+                    .style("height", 10 + 'px')
+                    .style("left", (pos_left + page_width/2 - 5) + 'px')
+                    .style("top", (pos_top+15) + 'px');
 
             }
         });
