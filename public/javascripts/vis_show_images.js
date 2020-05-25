@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-05-20 22:40:18
+ * @LastEditTime: 2020-05-25 12:08:13
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -161,6 +161,10 @@ function presentUPPapers(paperData, totalCount) {
         let keywords = paperData[paperIndex]['Keywords Author'];
         let paperUrl = paperData[paperIndex]['paper_url'];
         let author = paperData[paperIndex]['Author'];
+        let conf = paperData[paperIndex]['Conference'];
+        let year = paperData[paperIndex]['Year'];
+        let firstPage = paperData[paperIndex]['Paper FirstPage'];
+        let lastPage = paperData[paperIndex]['Paper LastPage'];
         let paper_div_id = 'p-'+paperIndex;
         var paper_div = document.createElement("div");
         paper_div.className = "paper-div";
@@ -168,8 +172,9 @@ function presentUPPapers(paperData, totalCount) {
         paper_div.innerHTML = `
         <div class='paper-panel row' id=${paper_div_id}>
             <a href=${paperUrl} target="_blank" class='paperTitle'>${paperTitle}</a>
-            <span class='paperAuthors'>${author}</span>
-            <span class='paperKeywords'>Keywords: ${keywords}</span>
+            <span class='paperAuthors'>Year: ${year}, Conference: ${conf}, Page(s): ${firstPage}-${lastPage}</span>
+            <span class='paperAuthors'>Author(s): ${author}</span>
+            <span class='paperKeywords'>Keyword(s): ${keywords}</span>
         </div>
         `;
         document.getElementById("image-gallery").appendChild(paper_div);

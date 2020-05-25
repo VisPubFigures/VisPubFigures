@@ -104,9 +104,20 @@ async function dbStart() {
     G_AUTHORS = G_AUTHORS.filter(function (el) {
         return el != "";
     });
-    G_AUTHORS = G_AUTHORS.sort((a, b) => {
-        return a.toLowerCase().localeCompare(b.toLowerCase());
-    });
+    var compare = function(a, b) {
+        var splitA = a.split(" ");
+        var splitB = b.split(" ");
+        var lastA = splitA[splitA.length - 1];
+        var lastB = splitB[splitB.length - 1];
+    
+        if (lastA < lastB) return -1;
+        if (lastA > lastB) return 1;
+        return 0;
+    }
+    // G_AUTHORS = G_AUTHORS.sort((a, b) => {
+    //     return a.toLowerCase().localeCompare(b.toLowerCase());
+    // });
+    G_AUTHORS = G_AUTHORS.sort(compare);
     var auth = d3.select('#authors');
     auth.selectAll("option")
         .data(G_AUTHORS)

@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-01-16 12:03:29
- * @LastEditTime: 2020-05-24 21:18:11
+ * @LastEditTime: 2020-05-25 12:08:00
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/image_filter.js
  */ 
@@ -19,6 +19,7 @@ function getAllKeywords(data){
         }
     }
     var uniq_keywords = [...new Set(keyword_list)];
+    uniq_keywords = uniq_keywords.sort();
     return uniq_keywords;
 }
 
@@ -28,6 +29,9 @@ function getAllAuthors(data){
     for(let i = 0;i < data.length;i++){
         let authors = data[i]["Author"].split(';');
         for(let j = 0; j < authors.length; j++){
+            if(authors[j] == 'Torsten Möller'){
+                authors[j] = 'Torsten Möller';
+            }
             author_list.push(authors[j]);
         }
     }
