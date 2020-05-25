@@ -5,6 +5,11 @@ body {
     padding-top: 4.5rem;
 }
 
+.btn-light{
+    background-color: #f1f1f1 !important;
+    border-color: #ced4da;
+}
+
 .red-font {
     color: #b90c14;
 }
