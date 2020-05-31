@@ -1,7 +1,7 @@
 <!--
  * @Author: Rui Li
  * @Date: 2020-05-13 20:47:58
- * @LastEditTime: 2020-05-31 11:35:13
+ * @LastEditTime: 2020-05-31 18:35:45
  * @Description: 
  * @FilePath: /VisPubFigures/devlog.md
  -->
@@ -60,6 +60,16 @@ https://cancerberosgx.github.io/demos/misc/fabricRectangleFreeDrawing.html?d=9
 
 Vis-10.1109-VISUAL.1991.175792-p148-C_2: correct
 2000 missing?
+
+
+最小化的bug  (done)
+
+van, 然后顺序颠倒显示，放到google sheet里面
+
+list里面click image显示的不对  (done)
+
+
+把所有人的名字合到一起来
 
 
 formalResults/validation_results/1998/Vis-10.1109-VISUAL.1998.745294-p127-C_4.txt  (problematic)
