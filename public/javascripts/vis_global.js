@@ -107,8 +107,17 @@ async function dbStart() {
     var compare = function(a, b) {
         var splitA = a.split(" ");
         var splitB = b.split(" ");
-        var lastA = splitA[splitA.length - 1];
-        var lastB = splitB[splitB.length - 1];
+        var lastA;
+        var lastB;
+        if(splitA[splitA.length - 2] == 'van'){
+            lastA = splitA[splitA.length - 2];
+            lastB = splitB[splitB.length - 2];
+        }
+        else{
+            lastA = splitA[splitA.length - 1];
+            lastB = splitB[splitB.length - 1];
+        }
+        
     
         if (lastA < lastB) return -1;
         if (lastA > lastB) return 1;

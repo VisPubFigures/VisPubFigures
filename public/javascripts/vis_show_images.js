@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-05-30 23:23:42
+ * @LastEditTime: 2020-05-31 18:29:49
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -111,13 +111,14 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
             //according to the id to determine the width of the div and the image
             let divID = $(this).attr("id");
             let imageID = $(this).attr("id").slice(9);
-            let img_width = imgDataDic[imageID].img_width;
-            let img_height = imgDataDic[imageID].img_height;
+            let img_width = imgDataDic[imageID].sizeW;
+            let img_height = imgDataDic[imageID].sizeH;
             let asp = img_width / img_height;  //aspect ratio
             let adjust_width = asp * size;
             let actual_width = adjust_width - 6;
             let actual_height = size - 6;
             $("#" + divID).css("width", adjust_width + 'px');
+            
             $("#img-thumb-" + imageID).css("width", actual_width + 'px');
             $("#img-thumb-" + imageID).css("height", actual_height + 'px');
         });
@@ -140,7 +141,7 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
 function presentUPPapers(paperData, totalCount) {
     d3.selectAll(".paper-div").remove();
     d3.selectAll(".image-div").remove();
-    $('#totalPageText').text(totalCount + ' papers in total');
+    $('#totalPageText').text(totalCount + ' paper(s) in total');
 
     scrollTo(0, 0);
 
@@ -170,13 +171,20 @@ function presentUPPapers(paperData, totalCount) {
         let paper_div_id = 'p-'+paperIndex;
         var paper_div = document.createElement("div");
         paper_div.className = "paper-div";
-        
+        /**
+         * <span class='paperAuthors'>Year: ${year}, Conference: ${conf}, Page(s): ${firstPage}-${lastPage}</span>
+            <span class='paperAuthors'>Author(s): ${author}</span>
+         */
+        let keywordsClass = 'keywords-1';
+        if(keywords == ''){
+            keywords = 'none supplied';
+            keywordsClass = 'keywords-0';
+        }
         paper_div.innerHTML = `
         <div class='paper-panel row' id=${paper_div_id}>
             <a href=${paperUrl} target="_blank" class='paperTitle'>${paperTitle}</a>
-            <span class='paperAuthors'>Year: ${year}, Conference: ${conf}, Page(s): ${firstPage}-${lastPage}</span>
-            <span class='paperAuthors'>Author(s): ${author}</span>
-            <span class='paperKeywords'>Keyword(s): ${keywords}</span>
+            <span class='paperAuthors'>${author.replace(/;/g, '; ')}, ${firstPage}-${lastPage}, ${conf}, ${year}</span>
+            <span class='paperKeywords'>Keyword(s): <label  class='${keywordsClass}'>${keywords}</label></span>
         </div>
         `;
         document.getElementById("image-gallery").appendChild(paper_div);
@@ -214,8 +222,8 @@ function presentUPPapers(paperData, totalCount) {
             //according to the id to determine the width of the div and the image
             let divID = $(this).attr("id");
             let imageID = $(this).attr("id").slice(9);
-            let img_width = imgDataDic[imageID].img_width;
-            let img_height = imgDataDic[imageID].img_height;
+            let img_width = imgDataDic[imageID].sizeW;
+            let img_height = imgDataDic[imageID].sizeH;
             let asp = img_width / img_height;  //aspect ratio
             let adjust_width = asp * size;
             let actual_width = adjust_width - 6;

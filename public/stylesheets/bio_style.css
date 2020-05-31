@@ -129,6 +129,13 @@ body {
     display: none;
 }
 
+.keywords-0{
+    color: #99a6ad;
+}
+
+.keywords-1{
+    color: #000;
+}
 
 .paper-div{
     margin-bottom: 15px;
