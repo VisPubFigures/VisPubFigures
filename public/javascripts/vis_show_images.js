@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-05-25 12:08:13
+ * @LastEditTime: 2020-05-30 23:23:42
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -44,8 +44,8 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
     for (let i = 0; i < imgData.length; i++) {
         let img_thumburl = imgData[i].url;
         let imageID = imgData[i].imageID;
-        let img_width = imgData[i].img_width;
-        let img_height = imgData[i].img_height;
+        let img_width = imgData[i].sizeW;
+        let img_height = imgData[i].sizeH;
         let asp = img_width / img_height;  //aspect ratio
         let div_width = asp * img_size;
         let actual_width = div_width - 6;
@@ -67,6 +67,8 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
         `;
         document.getElementById("image-gallery").appendChild(image_div);
     }
+
+
 
     //show the thumbnail
     var modal = document.getElementById('myModal');
@@ -267,52 +269,52 @@ function presentUPPapers(paperData, totalCount) {
 
 function showYearScent() {
     //Add scent to the page navigator
-    if (ifAllImage == 1) {
+    // if (ifAllImage == 1) {
 
-        d3.selectAll('.year-scent').remove();
-        Object.keys(yearPageDic).forEach((d, i) => {
-            let pageIndex = yearPageDic[d];
-            if ($('#page-' + pageIndex).length > 0) {
-                //get the position of the tag
-                let pos_left = document.getElementById('page-' + pageIndex).getBoundingClientRect().x;
-                let pos_top = document.getElementById('page-' + pageIndex).getBoundingClientRect().y - 30;
-                let page_width = document.getElementById('page-' + pageIndex).getBoundingClientRect().width;
-                //console.log(pageIndex, pos_left, pos_top, page_width);
-                // let html_text = `
-                //     <div class="year-scent-inner">
-                //         <label>${d}</label>
-                //     </div>
-                // `;
-                let html_text = `
-                    <div class="year-scent-inner">
+    //     d3.selectAll('.year-scent').remove();
+    //     Object.keys(yearPageDic).forEach((d, i) => {
+    //         let pageIndex = yearPageDic[d];
+    //         if ($('#page-' + pageIndex).length > 0) {
+    //             //get the position of the tag
+    //             let pos_left = document.getElementById('page-' + pageIndex).getBoundingClientRect().x;
+    //             let pos_top = document.getElementById('page-' + pageIndex).getBoundingClientRect().y - 30;
+    //             let page_width = document.getElementById('page-' + pageIndex).getBoundingClientRect().width;
+    //             //console.log(pageIndex, pos_left, pos_top, page_width);
+    //             // let html_text = `
+    //             //     <div class="year-scent-inner">
+    //             //         <label>${d}</label>
+    //             //     </div>
+    //             // `;
+    //             let html_text = `
+    //                 <div class="year-scent-inner">
                         
-                    </div>
-                `;
-                // var div = d3.select("body").append("div")
-                //     .attr('pointer-events', 'none')
-                //     .attr("class", "year-scent")
-                //     .style("opacity", 1)
-                //     .html(html_text)
-                //     .style("width", page_width + 'px')
-                //     .style("height", 30 + 'px')
-                //     .style("left", pos_left + 'px')
-                //     .style("top", pos_top + 'px');
-                var div = d3.select("body").append("div")
-                    .attr('pointer-events', 'none')
-                    .attr("class", "year-scent")
-                    .style("opacity", 1)
-                    .html(html_text)
-                    .style("width", 10 + 'px')
-                    .style("height", 10 + 'px')
-                    .style("left", (pos_left + page_width/2 - 5) + 'px')
-                    .style("top", (pos_top+15) + 'px');
+    //                 </div>
+    //             `;
+    //             // var div = d3.select("body").append("div")
+    //             //     .attr('pointer-events', 'none')
+    //             //     .attr("class", "year-scent")
+    //             //     .style("opacity", 1)
+    //             //     .html(html_text)
+    //             //     .style("width", page_width + 'px')
+    //             //     .style("height", 30 + 'px')
+    //             //     .style("left", pos_left + 'px')
+    //             //     .style("top", pos_top + 'px');
+    //             var div = d3.select("body").append("div")
+    //                 .attr('pointer-events', 'none')
+    //                 .attr("class", "year-scent")
+    //                 .style("opacity", 1)
+    //                 .html(html_text)
+    //                 .style("width", 10 + 'px')
+    //                 .style("height", 10 + 'px')
+    //                 .style("left", (pos_left + page_width/2 - 5) + 'px')
+    //                 .style("top", (pos_top+15) + 'px');
 
-            }
-        });
-    }
-    else {
-        d3.selectAll('.year-scent').remove();
-    }
+    //         }
+    //     });
+    // }
+    // else {
+    //     d3.selectAll('.year-scent').remove();
+    // }
 }
 
 

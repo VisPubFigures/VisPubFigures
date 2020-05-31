@@ -18,6 +18,7 @@ var currentKeywords = ''; //store the current keywords results
 var currentYearRange = [1990, 2019]; //store the current year range
 var currentConferences = ['Vis', 'SciVis', 'InfoVis', 'VAST'];
 var currentAuthors = 'All';
+var img_per_page = 200;
 
 var pageUI = new Object();
 
@@ -38,12 +39,11 @@ $(document).ready(function () {
 async function dbStart() {
 
     // G_PAP_DATA = await d3.csv('public/dataset/paperData.csv');
-    G_IMG_DATA = await d3.csv("public/dataset/vispubData.csv");
+    G_IMG_DATA = await d3.csv("public/dataset/vispubData30.csv");
     G_IMG_DATA = sortImageByYear(G_IMG_DATA);  //sort images by year, then sort by conference, the sort by first page.
 
     //params of image numbers
     var img_count = G_IMG_DATA.length;
-    var img_per_page = 204;
     var total_pages = Math.ceil(img_count / img_per_page);
 
     //group images to paper dataset
@@ -201,7 +201,7 @@ async function dbStart() {
         grid: true,
         min: '1990',
         max: '2019',
-        step: 5,
+        step: 1,
         skin: "square",
         prettify: yearString,
         onChange: function (data) {
@@ -279,7 +279,6 @@ function filterData() {
     //5. update the interface
     if (visMode == 1) {
         var img_count = data.length;
-        var img_per_page = 204;
         var total_pages = Math.ceil(img_count / img_per_page);
 
         pageUI.pageTotal = total_pages;
@@ -368,9 +367,10 @@ function extractPaperData(imgData) {
     imgData.forEach((d, i) => {
         let paperTitle = d['Paper Title'];
         if (paperTitle in paperDic) {
-            if (d['isUP'] == 1) {
-                paperDic[paperTitle]['Figures'].push(d);
-            }
+            // if (d['isUP'] == 1) {
+                
+            // }
+            paperDic[paperTitle]['Figures'].push(d);
         }
         else {
             let subDataDic = {}; //store the paper information
@@ -386,9 +386,10 @@ function extractPaperData(imgData) {
             subDataDic['Author'] = d['Author'];
             subDataDic['paper_url'] = d['paper_url'];
             subDataDic['Figures'] = [d];
-            if (d['isUP'] == 1) {
-                paperDic[paperTitle] = subDataDic;
-            }
+            // if (d['isUP'] == 1) {
+                
+            // }
+            paperDic[paperTitle] = subDataDic;
         }
     });
 

@@ -209,7 +209,7 @@ Page.prototype = {
     showPageTotal: function showPageTotal() {
         var that = this;
         var li = document.createElement('li');
-        li.innerHTML = that.pageTotal + '&nbsppages in total';
+        li.innerHTML = that.pageTotal + '&nbsppages';
         li.className = 'totalPage';
         this.ul.appendChild(li);
         // var li2 = document.createElement('li');

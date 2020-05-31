@@ -1,7 +1,7 @@
 <!--
  * @Author: Rui Li
  * @Date: 2020-05-13 20:47:58
- * @LastEditTime: 2020-05-24 22:27:57
+ * @LastEditTime: 2020-05-31 11:35:13
  * @Description: 
  * @FilePath: /VisPubFigures/devlog.md
  -->
@@ -45,3 +45,27 @@ https://cancerberosgx.github.io/demos/misc/fabricRectangleFreeDrawing.html?d=9
 5. only show dots on navigation bar
 6. change the color of year slider
 7. change the correctness of UP papers
+
+
+
+1. use deduped name column, remove 00001 pattern.  (done)
+2. convert 7 years meta-files to the individual files and then send to Prof. Chen.   ()
+3. prepare the image dataset database.  (done)
+4. UP papers -> show papers  (done)
+5. add a dropdown, choose images count, Torsen  
+6. 32 pages 6466 images in total  (done)
+7. add some data statistics to about page.
+8. add a histogram on scent.
+9. change the order of the name shown in the interface
+
+Vis-10.1109-VISUAL.1991.175792-p148-C_2: correct
+2000 missing?
+
+
+formalResults/validation_results/1998/Vis-10.1109-VISUAL.1998.745294-p127-C_4.txt  (problematic)
+formalResults/validation_results/1999/Vis-10.1109-VISUAL.1999.809865-p35-C_4.txt
+formalResults/validation_results/2000/InfoVis-10.1109-INFVIS.2000.885097-p105-C_4.txt (done)
+formalResults/validation_results/2012/InfoVis-10.1109-TVCG.2012.196-p2613-J_6.txt
+formalResults/validation_results/2012/InfoVis-10.1109-TVCG.2012.196-p2613-J_7.txt
+formalResults/validation_results/2015/SciVis-10.1109-TVCG.2015.2467434-p747-J_3.txt
+formalResults/validation_results/2019/VAST-10.1109-TVCG.2019.2934654-p1001-J_7.txt
