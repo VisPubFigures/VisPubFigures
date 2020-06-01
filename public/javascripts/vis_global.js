@@ -293,6 +293,7 @@ function filterData() {
         pageUI.pageTotal = total_pages;
         pageUI.pageAmount = img_per_page;
         pageUI.dataTotal = img_count;
+        pageUI.curPage = 1;
         pageUI.getPage = function (page) {
             let currentData = data.slice(img_per_page * (page - 1), img_per_page * page);
             presentImg(currentData, 0, 0, 1, 0);
@@ -309,6 +310,7 @@ function filterData() {
         pageUI.pageTotal = total_pages;
         pageUI.pageAmount = img_per_page;
         pageUI.dataTotal = img_count;
+        pageUI.curPage = 1;
         pageUI.getPage = function (page) {
             let currentData = paperData.slice(img_per_page * (page - 1), img_per_page * page);
             presentUPPapers(currentData, img_count);
