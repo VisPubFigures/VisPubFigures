@@ -1,7 +1,7 @@
 <!--
  * @Author: Rui Li
  * @Date: 2020-05-13 20:47:58
- * @LastEditTime: 2020-05-31 18:35:45
+ * @LastEditTime: 2020-05-31 18:55:05
  * @Description: 
  * @FilePath: /VisPubFigures/devlog.md
  -->
@@ -71,6 +71,9 @@ list里面click image显示的不对  (done)
 
 把所有人的名字合到一起来
 
+
+
+2019年的name deluped
 
 formalResults/validation_results/1998/Vis-10.1109-VISUAL.1998.745294-p127-C_4.txt  (problematic)
 formalResults/validation_results/1999/Vis-10.1109-VISUAL.1999.809865-p35-C_4.txt
