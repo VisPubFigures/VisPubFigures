@@ -391,6 +391,10 @@ input[type=submit] {
     color: #ffffff;
 }
 
+.d3-tip{
+    font-size: 0.8rem;
+}
+
 .year-scent {
     position: absolute;
     font-size: 0.8rem;
