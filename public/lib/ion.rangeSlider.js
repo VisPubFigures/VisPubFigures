@@ -125,7 +125,7 @@
         '<span class="irs-min">0</span><span class="irs-max">1</span>' +
         '<span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span>' +
         '</span>' +
-        '<span class="irs-grid"></span>';
+        '<span class="irs-grid" id="irs-grid-base"></span>';
 
     var single_html =
         '<span class="irs-bar irs-bar--single"></span>' +
@@ -136,7 +136,7 @@
         '<span class="irs-bar"></span>' +
         '<span class="irs-shadow shadow-from"></span>' +
         '<span class="irs-shadow shadow-to"></span>' +
-        '<span class="irs-handle from"><i></i><i></i><i></i></span>' +
+        '<span class="irs-handle from" id="irs-handle-from-id"><i></i><i></i><i></i></span>' +
         '<span class="irs-handle to"><i></i><i></i><i></i></span>';
 
     var disable_html =
@@ -1404,10 +1404,10 @@
                     this.$cache.s_to[0].style.left = this.coords.p_to_fake + "%";
 
                     if (this.old_from !== this.result.from || this.force_redraw) {
-                        this.$cache.from[0].style.left = this.labels.p_from_left + "%";
+                        this.$cache.from[0].style.left = (this.labels.p_from_left) + "%";
                     }
                     if (this.old_to !== this.result.to || this.force_redraw) {
-                        this.$cache.to[0].style.left = this.labels.p_to_left + "%";
+                        this.$cache.to[0].style.left = (this.labels.p_to_left) + "%";
                     }
 
                     this.$cache.single[0].style.left = this.labels.p_single_left + "%";

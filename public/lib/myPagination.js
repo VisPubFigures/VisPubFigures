@@ -89,7 +89,7 @@ Page.prototype = {
         var li = document.createElement('li');
         li.innerHTML = 'First Page';
         this.ul.appendChild(li);
-        showYearScent();
+        //showYearScent();
         li.onclick = function () {
             var val = parseInt(1);
             that.curPage = val;
@@ -167,7 +167,7 @@ Page.prototype = {
         var li = document.createElement('li');
         li.innerHTML = 'Last page';
         this.ul.appendChild(li);
-        showYearScent();
+        //showYearScent();
         li.onclick = function () {
             var yyfinalPage = that.pageTotal;
             var val = parseInt(yyfinalPage);

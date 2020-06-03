@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-05-31 18:29:49
+ * @LastEditTime: 2020-06-02 22:55:05
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -118,7 +118,7 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
             let actual_width = adjust_width - 6;
             let actual_height = size - 6;
             $("#" + divID).css("width", adjust_width + 'px');
-            
+
             $("#img-thumb-" + imageID).css("width", actual_width + 'px');
             $("#img-thumb-" + imageID).css("height", actual_height + 'px');
         });
@@ -126,6 +126,7 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
     });
     //show year scent
     showYearScent();
+
 
     $(window).resize(function () {
         showYearScent();
@@ -168,7 +169,7 @@ function presentUPPapers(paperData, totalCount) {
         let year = paperData[paperIndex]['Year'];
         let firstPage = paperData[paperIndex]['Paper FirstPage'];
         let lastPage = paperData[paperIndex]['Paper LastPage'];
-        let paper_div_id = 'p-'+paperIndex;
+        let paper_div_id = 'p-' + paperIndex;
         var paper_div = document.createElement("div");
         paper_div.className = "paper-div";
         /**
@@ -176,7 +177,7 @@ function presentUPPapers(paperData, totalCount) {
             <span class='paperAuthors'>Author(s): ${author}</span>
          */
         let keywordsClass = 'keywords-1';
-        if(keywords == ''){
+        if (keywords == '') {
             keywords = 'none supplied';
             keywordsClass = 'keywords-0';
         }
@@ -210,7 +211,7 @@ function presentUPPapers(paperData, totalCount) {
             </div>  
             `;
             //console.log("p-"+paperIndex);
-            document.getElementById("p-"+paperIndex).appendChild(image_div);
+            document.getElementById("p-" + paperIndex).appendChild(image_div);
         }
     }
 
@@ -271,62 +272,107 @@ function presentUPPapers(paperData, totalCount) {
     $(window).resize(function () {
         showYearScent();
     });
-    
+
 
 }
 
 function showYearScent() {
-    //Add scent to the page navigator
-    // if (ifAllImage == 1) {
+    //Add scent to the year slider
+    d3.selectAll('.year-scent').remove();
+    //1. get the position of year slider
+    let circle_width = convertRemToPixels(1) / 2;
+    let pos_left = document.getElementById('year-slider').getBoundingClientRect().x + 40 + circle_width - 5;
+    let pos_top = document.getElementById('year-slider').getBoundingClientRect().y - 10;
+    let width = document.getElementById('year-slider').getBoundingClientRect().width - 40 - circle_width * 2 + 10;
+    let height = 35;
+    //irs-grids
+    let html_text = `
+    `;
+    var div = d3.select("body").append("div")
+        .attr('pointer-events', 'none')
+        .attr("class", "year-scent")
+        .attr("id", 'year-scent-div')
+        .style("opacity", 1)
+        .html(html_text)
+        .style("width", width + 'px')
+        .style("height", height + 'px')
+        .style("left", (pos_left) + 'px')
+        .style("top", (pos_top) + 'px');
 
-    //     d3.selectAll('.year-scent').remove();
-    //     Object.keys(yearPageDic).forEach((d, i) => {
-    //         let pageIndex = yearPageDic[d];
-    //         if ($('#page-' + pageIndex).length > 0) {
-    //             //get the position of the tag
-    //             let pos_left = document.getElementById('page-' + pageIndex).getBoundingClientRect().x;
-    //             let pos_top = document.getElementById('page-' + pageIndex).getBoundingClientRect().y - 30;
-    //             let page_width = document.getElementById('page-' + pageIndex).getBoundingClientRect().width;
-    //             //console.log(pageIndex, pos_left, pos_top, page_width);
-    //             // let html_text = `
-    //             //     <div class="year-scent-inner">
-    //             //         <label>${d}</label>
-    //             //     </div>
-    //             // `;
-    //             let html_text = `
-    //                 <div class="year-scent-inner">
-                        
-    //                 </div>
-    //             `;
-    //             // var div = d3.select("body").append("div")
-    //             //     .attr('pointer-events', 'none')
-    //             //     .attr("class", "year-scent")
-    //             //     .style("opacity", 1)
-    //             //     .html(html_text)
-    //             //     .style("width", page_width + 'px')
-    //             //     .style("height", 30 + 'px')
-    //             //     .style("left", pos_left + 'px')
-    //             //     .style("top", pos_top + 'px');
-    //             var div = d3.select("body").append("div")
-    //                 .attr('pointer-events', 'none')
-    //                 .attr("class", "year-scent")
-    //                 .style("opacity", 1)
-    //                 .html(html_text)
-    //                 .style("width", 10 + 'px')
-    //                 .style("height", 10 + 'px')
-    //                 .style("left", (pos_left + page_width/2 - 5) + 'px')
-    //                 .style("top", (pos_top+15) + 'px');
+    //draw the histogram on the div
+    renderYearStatistics('year-scent-div', width, height);
 
-    //         }
-    //     });
-    // }
-    // else {
-    //     d3.selectAll('.year-scent').remove();
-    // }
+}
+
+function renderYearStatistics(divID, divWidth, divHeight) {
+
+    var margin = { top: 5, right: 2, bottom: 5, left: 2 },
+        width = divWidth - margin.left - margin.right,
+        height = divHeight - margin.top - margin.bottom;
+    // let padding = 2;
+    // let bandwidth = width - padding * (scentDataArr.length + 1)
+
+    var svg = d3.select("#" + divID)
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+    tip = d3.tip().attr('class', 'd3-tip').html(function (d) {
+        return "<strong>" + d.year + ": </strong> <span style='color:#0088f3'>" + d.val + " figures</span>";
+    });
+
+    svg.call(tip);
+
+    console.log(width);
+    var x = d3.scaleBand()
+        .range([0, width])
+        .domain(Object.keys(scentData))
+        .paddingInner(0.4);
+
+    var y = d3.scaleLinear()
+        .domain([0, Math.max.apply(Math, scentDataArr.map(function (o) { return o.val; }))])
+        .range([height, 0]);
+    // svg.append("g")
+    //     .attr("transform", "translate(0," + height + ")")
+    //     .call(d3.axisBottom(x));
+
+    svg.selectAll("bar")
+        .data(scentDataArr)
+        .enter()
+        .append("rect")
+        .attr("x", function (d, i) {
+            return x(d.year);
+        })
+        .attr("y", function (d, i) {
+            return y(d.val);
+        })
+        .attr("width", x.bandwidth())
+        .attr("height", function (d) { return height - y(d.val); })
+        .attr("fill", function (d, i) {
+            if (d.ifSelected == 1) {
+                return '#99a6ad';
+            }
+            else {
+                return '#dee2e6';
+            }
+        })
+        .attr('cursor', 'pointer')
+        .on("mouseover", function (d) {
+            tip.show(d);
+        })
+        .on("mouseout", function () {
+            tip.hide();
+        })
+
 }
 
 
-
+function convertRemToPixels(rem) {
+    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
 
 
 

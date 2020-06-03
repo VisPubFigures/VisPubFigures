@@ -88,6 +88,7 @@ Build date: 2019-12-19 16:51:02
   height: 4px;
 }
 .irs-grid-text {
+  display: none;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -666,7 +667,7 @@ Build date: 2019-12-19 16:51:02
 .irs--square .irs-to,
 .irs--square .irs-single {
   font-size: 0.8rem;
-  top: 0px;
+  top: 38px;
   line-height: 0.8;
   text-shadow: none;
   padding: 3px 5px;
@@ -676,6 +677,7 @@ Build date: 2019-12-19 16:51:02
 }
 .irs--square .irs-grid {
   height: 25px;
+  display: none;
 }
 .irs--square .irs-grid-pol {
   background-color: #dedede;
