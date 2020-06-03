@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-06-02 22:55:05
+ * @LastEditTime: 2020-06-02 23:02:53
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -300,9 +300,17 @@ function showYearScent() {
         .style("top", (pos_top) + 'px');
 
     //draw the histogram on the div
-    renderYearStatistics('year-scent-div', width, height);
+    if(checkEmptyObj(scentData) == 0){
+        console.log(1);
+        renderYearStatistics('year-scent-div', width, height);
+    }
+        
 
 }
+
+
+
+
 
 function renderYearStatistics(divID, divWidth, divHeight) {
 
@@ -326,7 +334,7 @@ function renderYearStatistics(divID, divWidth, divHeight) {
 
     svg.call(tip);
 
-    console.log(width);
+    //console.log(width);
     var x = d3.scaleBand()
         .range([0, width])
         .domain(Object.keys(scentData))

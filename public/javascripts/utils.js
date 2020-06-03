@@ -101,3 +101,16 @@ function autocomplete(inp, arr) {
     });
 }
 
+/**
+ * check if an object is empty
+ * @param {} obj 
+ */
+function checkEmptyObj(obj){
+    let isEmpty = 1;
+    Object.keys(obj).forEach((d,i)=>{
+        if(obj[d] != 0){
+            isEmpty = 0;
+        }
+    })
+    return isEmpty;
+}   

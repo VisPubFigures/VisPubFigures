@@ -368,7 +368,7 @@ function filterData() {
  * count image numbers by year
  */
 function countImageByYear(data){
-    console.log(scentData);
+    //console.log(scentData);
     //reset scent data
     Object.keys(scentData).forEach((d,i)=>{
         scentData[d] = 0;
@@ -395,7 +395,7 @@ function countImageByYear(data){
         }
         scentDataArr.push(subData);
     });
-    console.log(scentDataArr);
+    //console.log(scentDataArr);
 }
 
 /**
