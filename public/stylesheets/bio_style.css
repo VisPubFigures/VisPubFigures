@@ -194,7 +194,7 @@ body {
     /* Hidden by default */
     position: fixed;
     /* Stay in place */
-    z-index: 1;
+    z-index: 21;
     /* Sit on top */
     padding-top: 100px;
     /* Location of the box */
@@ -701,3 +701,25 @@ input[type=submit] {
 }
 
 
+/* .tooltip-inner {
+	max-width: 100rem !important;
+	padding: 8px 10px;
+	font-size: 1rem;
+	text-align: left;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 6px;
+	opacity: 1 !important;
+	line-height: 1.2rem;
+	color: #000;
+	background-color: #fdf7e5;
+	border: #f1e4c0 2px solid;
+}
+
+.tooltip .tooltip-arrow {
+	background-color: #fdf5e4;
+}
+
+.tooltip.in {
+	opacity: 1!important;
+} */

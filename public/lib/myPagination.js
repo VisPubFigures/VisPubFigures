@@ -8,19 +8,19 @@ function Page(_ref) {
         showSkipInputFlag = _ref.showSkipInputFlag,
         pageAmount = _ref.pageAmount,
         dataTotal = _ref.dataTotal;
-    if(!pageSize){
+    if (!pageSize) {
         pageSize = 0
     };
-    if(!pageSize){
+    if (!pageSize) {
         pageSize = 0
     };
-    if(!pageTotal){
+    if (!pageTotal) {
         pageTotal = 0
     };
-    if(!pageAmount){
+    if (!pageAmount) {
         pageAmount = 0
     };
-    if(!dataTotal){
+    if (!dataTotal) {
         dataTotal = 0
     };
     this.pageSize = pageSize || 5; //分页个数
@@ -33,9 +33,9 @@ function Page(_ref) {
     this.getPage = getPage;
     this.showPageTotalFlag = showPageTotalFlag || false; //是否显示数据统计
     this.showSkipInputFlag = showSkipInputFlag || false; //是否支持跳转
-    if(dataTotal >0 &&pageTotal>0){
+    if (dataTotal > 0 && pageTotal > 0) {
         this.init();
-    }else{
+    } else {
         console.error("总页数或者总数据参数不对")
     }
 };
@@ -48,6 +48,8 @@ Page.prototype = {
         this.ul.innerHTML = '';
         pagination.appendChild(this.ul);
         var that = this;
+        //select number of items shown on each page
+        that.selectItemCount();
         //首页
         that.firstPage();
         //上一页
@@ -57,7 +59,7 @@ Page.prototype = {
             var li = document.createElement('li');
             if (item == that.curPage) {
                 li.className = 'active';
-                
+
             } else {
                 li.onclick = function () {
                     that.curPage = parseInt(this.innerHTML);
@@ -65,7 +67,7 @@ Page.prototype = {
                     that.getPage(that.curPage);
                 };
             }
-            li.id = 'page-'+item;
+            li.id = 'page-' + item;
             li.innerHTML = item;
             that.ul.appendChild(li);
         });
@@ -82,6 +84,48 @@ Page.prototype = {
         if (that.showPageTotalFlag) {
             that.showPageTotal();
         }
+    },
+    //select plugin, add by Rui
+    selectItemCount: function selectItemCount() {
+        var that = this;
+        var li = document.createElement('li');
+        li.className = 'totalPage';
+        let span = document.createElement('span');
+        if (visMode == 1) 
+            span.innerHTML = 'figures per page&nbsp';
+        else if (visMode = 2) 
+            span.innerHTML = 'papers per page&nbsp';
+        li.appendChild(span);
+        var selectList = document.createElement("select");
+        selectList.id = "imageCountPerPage";
+        var options;
+        if (visMode == 1) 
+            options = [200, 240, 300, 400, 1000];
+        else if (visMode = 2) 
+            options = [20, 24, 30, 40, 100];
+        //Create and append the options
+        for (let i = 0; i < options.length; i++) {
+            let option = document.createElement("option");
+            option.value = options[i];
+            option.text = options[i];
+            selectList.appendChild(option);
+        }
+        li.appendChild(span);
+        li.appendChild(selectList);
+        this.ul.appendChild(li);
+        //console.log(that.pageAmount);
+        $('#imageCountPerPage').val(that.pageAmount);
+        //add change event
+        $('#imageCountPerPage').on('change', function () {
+            let figureCount = this.value;
+            if (visMode == 1) 
+                img_per_page = figureCount;
+            else if (visMode = 2) 
+                paper_per_page = figureCount;
+            filterData();
+        })
+        
+
     },
     //首页
     firstPage: function firstPage() {
@@ -185,15 +229,15 @@ Page.prototype = {
         span1.innerHTML = 'go to page';
         li.appendChild(span1);
         var input = document.createElement('input');
-        input.setAttribute("type","number");
+        input.setAttribute("type", "number");
         input.onkeydown = function (e) {
             var oEvent = e || event;
             if (oEvent.keyCode == '13') {
                 var val = parseInt(oEvent.target.value);
-                if (typeof val === 'number' && val <= that.pageTotal && val>0) {
+                if (typeof val === 'number' && val <= that.pageTotal && val > 0) {
                     that.curPage = val;
                     that.getPage(that.curPage);
-                }else{
+                } else {
                     alert("Please enter the correct page number !")
                 }
                 that.init();

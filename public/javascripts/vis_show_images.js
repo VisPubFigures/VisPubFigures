@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-06-02 23:02:53
+ * @LastEditTime: 2020-06-03 22:21:24
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -84,12 +84,12 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
         modal.style.display = "block";
         modalImg.src = imgData[id].url;
         paper_info.innerHTML = imgData[id]['Paper Title'];
-        author_info.innerHTML = imgData[id]['Author'];
+        author_info.innerHTML = imgData[id]['Author'].replace(/;/g, '; ');
         link_info.href = imgData[id]['paper_url'];
         link_info.innerHTML = imgData[id]['paper_url'];
         year_info.innerHTML = imgData[id]['Year'];
         type_info.innerHTML = imgData[id]['Paper type'];
-        keyword_info.innerHTML = imgData[id]['Keywords Author'];
+        keyword_info.innerHTML = imgData[id]['Keywords Author'].replace(/,/g, '; ');
     });
 
     // Get the <span> element that closes the modal
@@ -185,7 +185,7 @@ function presentUPPapers(paperData, totalCount) {
         <div class='paper-panel row' id=${paper_div_id}>
             <a href=${paperUrl} target="_blank" class='paperTitle'>${paperTitle}</a>
             <span class='paperAuthors'>${author.replace(/;/g, '; ')}, ${firstPage}-${lastPage}, ${conf}, ${year}</span>
-            <span class='paperKeywords'>Keyword(s): <label  class='${keywordsClass}'>${keywords}</label></span>
+            <span class='paperKeywords'>Keyword(s): <label  class='${keywordsClass}'>${keywords.replace(/,/g, '; ')}</label></span>
         </div>
         `;
         document.getElementById("image-gallery").appendChild(paper_div);
@@ -250,12 +250,12 @@ function presentUPPapers(paperData, totalCount) {
         modal.style.display = "block";
         modalImg.src = imgDataDic[id].url;
         paper_info.innerHTML = imgDataDic[id]['Paper Title'];
-        author_info.innerHTML = imgDataDic[id]['Author'];
+        author_info.innerHTML = imgDataDic[id]['Author'].replace(/;/g, '; ');
         link_info.href = imgDataDic[id]['paper_url'];
         link_info.innerHTML = imgDataDic[id]['paper_url'];
         year_info.innerHTML = imgDataDic[id]['Year'];
         type_info.innerHTML = imgDataDic[id]['Paper type'];
-        keyword_info.innerHTML = imgDataDic[id]['Keywords Author'];
+        keyword_info.innerHTML = imgDataDic[id]['Keywords Author'].replace(/,/g, '; ');
     });
 
     // Get the <span> element that closes the modal
@@ -301,7 +301,7 @@ function showYearScent() {
 
     //draw the histogram on the div
     if(checkEmptyObj(scentData) == 0){
-        console.log(1);
+        //console.log(1);
         renderYearStatistics('year-scent-div', width, height);
     }
         

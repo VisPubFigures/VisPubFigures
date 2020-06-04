@@ -1,7 +1,7 @@
 <!--
  * @Author: Rui Li
  * @Date: 2020-05-13 20:47:58
- * @LastEditTime: 2020-05-31 18:55:05
+ * @LastEditTime: 2020-06-03 22:24:10
  * @Description: 
  * @FilePath: /VisPubFigures/devlog.md
  -->
@@ -58,6 +58,7 @@ https://cancerberosgx.github.io/demos/misc/fabricRectangleFreeDrawing.html?d=9
 8. add a histogram on scent.
 9. change the order of the name shown in the interface
 
+
 Vis-10.1109-VISUAL.1991.175792-p148-C_2: correct
 2000 missing?
 
@@ -82,3 +83,9 @@ formalResults/validation_results/2012/InfoVis-10.1109-TVCG.2012.196-p2613-J_6.tx
 formalResults/validation_results/2012/InfoVis-10.1109-TVCG.2012.196-p2613-J_7.txt
 formalResults/validation_results/2015/SciVis-10.1109-TVCG.2015.2467434-p747-J_3.txt
 formalResults/validation_results/2019/VAST-10.1109-TVCG.2019.2934654-p1001-J_7.txt
+
+
+
+http://dx.doi.org/10.1109/VISUAL.1997.663848
+http://dx.doi.org/10.1109/VISUAL.1997.663851  
+title is not correct

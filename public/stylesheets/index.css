@@ -63,6 +63,8 @@ h3{
 
 }
 
+
+
 .corners{
   /*background-color: red;*/
   min-width: 15px;
@@ -294,4 +296,7 @@ form label{
   display:inline-block;
   color:#292929;
 }
+
+
+
 

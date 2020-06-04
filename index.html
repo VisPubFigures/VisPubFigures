@@ -91,11 +91,11 @@
                     <button type="button" id="search-btn" class="btn btn-success">Submit</button>&nbsp;&nbsp;&nbsp;
                     <!--  -->
                     <form class="form-inline justify-content-center">
-                        -&nbsp;<input type="range" id="image-size-slider" class="custom-range" value="25" min="12" max="100" />+
+                        -&nbsp;<input type="range" id="image-size-slider" data-toggle="tooltip" data-html="true" title="change figure size" class="custom-range" value="25" min="12" max="100" />+
                     </form>
-                    <img src="public/images/brick.png" class="mode-icon" id="image-mode">
+                    <img src="public/images/brick.png" class="mode-icon" id="image-mode" data-toggle="tooltip" data-html="true" title="Figure view">
                     &nbsp;&nbsp;
-                    <img src="public/images/list.png" class="mode-icon" id="paper-mode">
+                    <img src="public/images/list.png" class="mode-icon" id="paper-mode" data-toggle="tooltip" data-html="true" title="Paper view">
         
                 </div>
             </div>
@@ -199,17 +199,18 @@
     <hr>
 
     <div class="container-fluid">
+        <div class="row">
+            <!-- <select class="selectpicker">
+                <option>Mustard</option>
+                <option>Ketchup</option>
+                <option>Relish</option>
+              </select> -->
+              
+              
+            <div id="pagination" class="pagination"></div>
+        </div>
         <div class="container">
-            <div class="row">
-                <!-- <select class="selectpicker">
-                    <option>Mustard</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
-                  </select> -->
-                  
-                  
-                <div id="pagination" class="pagination"></div>
-            </div>
+            
             
 
         </div>

@@ -19,6 +19,7 @@ var currentYearRange = [1990, 2019]; //store the current year range
 var currentConferences = ['Vis', 'SciVis', 'InfoVis', 'VAST'];
 var currentAuthors = 'All';
 var img_per_page = 200;
+var paper_per_page = 20;
 
 
 var pageUI = new Object();
@@ -283,7 +284,10 @@ async function dbStart() {
         filterData();
     });
 
-
+    //tooltip register
+    $("#image-mode").tooltip();
+    $("#paper-mode").tooltip();
+    //$("#image-size-slider").tooltip();
 }
 
 
@@ -347,18 +351,18 @@ function filterData() {
     else if (visMode == 2) {
         ifAllImage = 0;
         let img_count = paperData.length;
-        let img_per_page = 20;
-        let total_pages = Math.ceil(img_count / img_per_page);
+        //paper_per_page = 20;
+        let total_pages = Math.ceil(img_count / paper_per_page);
         pageUI.pageTotal = total_pages;
-        pageUI.pageAmount = img_per_page;
+        pageUI.pageAmount = paper_per_page;
         pageUI.dataTotal = img_count;
         pageUI.curPage = 1;
         pageUI.getPage = function (page) {
-            let currentData = paperData.slice(img_per_page * (page - 1), img_per_page * page);
+            let currentData = paperData.slice(paper_per_page * (page - 1), paper_per_page * page);
             presentUPPapers(currentData, img_count);
         };
         pageUI.init();
-        var currentData = paperData.slice(img_per_page * 0, img_per_page * 1);
+        var currentData = paperData.slice(paper_per_page * 0, paper_per_page * 1);
         presentUPPapers(currentData, img_count);
     }
 
