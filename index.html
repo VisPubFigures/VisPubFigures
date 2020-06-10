@@ -221,19 +221,44 @@
         <!-- The Modal to show original img-->
         <div id="myModal" class="modal">
             <span class="close">&times;</span>
-            <div class="ori-img-container">
-                <img class="modal-content" id="ori-img">
+            <div class="container" style="width: 100%; height: 90%">
+                <div class="row" style="height: 95%;">
+                    <div class="col-md-8" style="height: 90%;">
+                        <div id="img-box">
+                            <div class="imageContainer" id="vis-img-box">
+                                <img class="origin-img" id="ori-img" src="">
+                            </div>
+                        </div>
+
+
+                        <!-- <img class="modal-content" id="ori-img"> -->
+                        <!-- <div class="ori-img-container">
+                            
+                        </div> -->
+                    </div>
+                    <div class="col-md-4" style="height: 90%;">
+                        <div class="meta-info">
+                            <span class="blue-font">Paper: </span><span id="paper-info" class="caption"></span><br>
+                            <span class="blue-font">Author: </span><span id="author-info" class="caption"></span><br>
+                            <!-- <span class="blue-font">Journal: </span><span id="journal-info" class="caption">
+                                    IEEE Transactions on Visualization and Computer Graphics</span><br> -->
+                            <span class="blue-font">Year: </span><span id="year-info" class="caption"></span><br>
+                            <span class="blue-font">Paper URL : </span><a id="link-info" class="caption" target="blank"></a><br>
+                            <span class="blue-font">Paper Type: </span><span id="paper-type-info" class="caption"></span><br>
+                            <span class="blue-font">Author Keywords: </span><span id="keyword-info" class="caption"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4" style="left: 20%;">
+                        <button class="btn btn-light" id="modal-previous"><</button>
+            
+                        <button class="btn btn-light" id="modal-next">></button>
+                    </div>
+                </div>
             </div>
-            <div class="meta-info">
-                <span class="blue-font">Paper: </span></span>><span id="paper-info" class="caption"></span><br>
-                <span class="blue-font">Author: </span><span id="author-info" class="caption"></span><br>
-                <!-- <span class="blue-font">Journal: </span><span id="journal-info" class="caption">
-                        IEEE Transactions on Visualization and Computer Graphics</span><br> -->
-                <span class="blue-font">Year: </span><span id="year-info" class="caption"></span><br>
-                <span class="blue-font">Paper URL : </span><a id="link-info" class="caption" target="blank"></a><br>
-                <span class="blue-font">Paper Type: </span><span id="paper-type-info" class="caption"></span><br>
-                <span class="blue-font">Author Keywords: </span><span id="keyword-info" class="caption"></span>
-            </div>
+
+            
+            
             <!--        show other images-->
             <div class="container">
 

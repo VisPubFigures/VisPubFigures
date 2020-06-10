@@ -100,15 +100,7 @@ body {
 
 /* correlation */
 
-.imageContainer {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-}
+
 
 #corre-img-div {
     height: 350px;
@@ -198,9 +190,9 @@ body {
     /* Sit on top */
     padding-top: 100px;
     /* Location of the box */
-    left: 10%;
+    left: 15%;
     top: 10%;
-    width: 80%;
+    width: 70%;
     /* Full width */
     height: 80%;
     /* Full height */
@@ -237,11 +229,11 @@ body {
 
 /* Add Animation */
 
-.modal-content, #caption {
+.modal, #caption {
     -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
+    -webkit-animation-duration: 0.3s;
     animation-name: zoom;
-    animation-duration: 0.6s;
+    animation-duration: 0.3s;
 }
 
 @-webkit-keyframes zoom {
@@ -294,7 +286,7 @@ body {
     display: block;
     position: absolute;
     top: 50%;
-    left: 40%;
+    left: 35%;
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
@@ -302,9 +294,8 @@ body {
 
 .meta-info {
     position: relative;
-    float: right;
-    right: 5%;
-    width: 30%;
+    /* width: 80%; */
+    /* margin: auto; */
 }
 
 .caption {
@@ -723,3 +714,36 @@ input[type=submit] {
 .tooltip.in {
 	opacity: 1!important;
 } */
+
+
+/* image container */
+#img-box{
+    text-align: center;
+	height: 100%;
+}
+
+.imageContainer {
+    display: block;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
+
+.origin-img {
+	max-height: 600px;
+	max-width: 100%;
+	width: 100%;
+	/* height: 100%; */
+}
+
+/* tall aspect ratio */
+
+.origin-img-tall {
+	max-height: 600px;
+	max-width: 100%;
+	/* width: 100%; */
+	height: 600px;
+}
