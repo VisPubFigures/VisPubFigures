@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-06-09 22:26:59
+ * @LastEditTime: 2020-06-10 11:48:52
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -13,6 +13,8 @@ confDic = {
     'SciVis': '#2980b9',
     'VAST': '#8e44ad'
 }
+
+var imgDataDic = {};
 
 var gIndex = -1;
 
@@ -193,9 +195,6 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
         modal.style.display = "none";
     }
 
-
-
-
     // Change the image size as the range slider changes
     $(document).on('input', '#image-size-slider', function () {
         let size = $(this).val() * 4;
@@ -203,7 +202,9 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
         $(".img-panel").each(function () {
             //according to the id to determine the width of the div and the image
             let divID = $(this).attr("id");
+            
             let imageID = $(this).attr("id").split('-')[3];
+            //console.log($(this).attr("id"));
             let imageIDprefix = $(this).attr("id").slice(9);
             let img_width = imgDataDic[imageID].sizeW;
             let img_height = imgDataDic[imageID].sizeH;
@@ -212,7 +213,6 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
             let actual_width = adjust_width - 6;
             let actual_height = size - 6;
             $("#" + divID).css("width", adjust_width + 'px');
-
             $("#img-thumb-" + imageIDprefix).css("width", actual_width + 'px');
             $("#img-thumb-" + imageIDprefix).css("height", actual_height + 'px');
         });
@@ -301,10 +301,10 @@ function presentUPPapers(paperData, totalCount) {
             
             //box-shadow: inset 0px 0px 0px 1px ${confDic[conf]};
             image_div.innerHTML = `
-            <div class="img-panel image-grid" id="img-grid-${imageID}" 
+            <div class="img-panel image-grid" id="img-grid-${img_count}-${imageID}" 
             style="border: solid 3px ${confDic[conf]}; width:${div_width}px; ">
                 <div class="image-a" id="thumb${i}">
-                    <img class="vis-img" id="img-thumb-${imageID}" style="width:${actual_width}px; height:${img_size - 6}px" src = ${img_thumburl} alt="">
+                    <img class="vis-img" id="img-thumb-${img_count}-${imageID}" style="width:${actual_width}px; height:${img_size - 6}px" src = ${img_thumburl} alt="">
                 </div>
             </div>  
             `;
@@ -321,7 +321,9 @@ function presentUPPapers(paperData, totalCount) {
         $(".img-panel").each(function () {
             //according to the id to determine the width of the div and the image
             let divID = $(this).attr("id");
-            let imageID = $(this).attr("id").slice(9);
+            let imageID = $(this).attr("id").split('-')[3];
+            let imageIDprefix = $(this).attr("id").slice(9);
+            //console.log(imageIDprefix);
             let img_width = imgDataDic[imageID].sizeW;
             let img_height = imgDataDic[imageID].sizeH;
             let asp = img_width / img_height;  //aspect ratio
@@ -329,8 +331,8 @@ function presentUPPapers(paperData, totalCount) {
             let actual_width = adjust_width - 6;
             let actual_height = size - 6;
             $("#" + divID).css("width", adjust_width + 'px');
-            $("#img-thumb-" + imageID).css("width", actual_width + 'px');
-            $("#img-thumb-" + imageID).css("height", actual_height + 'px');
+            $("#img-thumb-" + imageIDprefix).css("width", actual_width + 'px');
+            $("#img-thumb-" + imageIDprefix).css("height", actual_height + 'px');
         });
 
     });
@@ -345,7 +347,7 @@ function presentUPPapers(paperData, totalCount) {
     var type_info = document.getElementById("paper-type-info");
     var keyword_info = document.getElementById("keyword-info");
     $('.vis-img').click(function (e) {
-        var id = this.id.split('-')[2];
+        var id = this.id.split('-')[3];
         modal.style.display = "block";
         let imageWidth = parseInt(imgDataDic[id].sizeW);
         let imageHeight = parseInt(imgDataDic[id].sizeH);
