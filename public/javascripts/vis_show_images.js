@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-06-10 21:30:54
+ * @LastEditTime: 2020-06-11 16:24:58
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -166,6 +166,8 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
         link_info.innerHTML = imgData[gIndex]['paper_url'];
         year_info.innerHTML = imgData[gIndex]['Year'];
         type_info.innerHTML = imgData[gIndex]['Paper type'];
+        let urlArr = imgData[gIndex].url.split('/');
+        imagename_info.innerHTML = urlArr[urlArr.length - 1];
         //console.log(imgData[id]['Keywords Author'].replace(/,/g, '; ') == "");
         if (imgData[gIndex]['Keywords Author'].replace(/,/g, '; ') == "") {
             $("#keyword-info").css("color", "#99a6ad");
@@ -434,6 +436,8 @@ function presentUPPapers(paperData, totalCount) {
         link_info.innerHTML = paperImgData[gIndex]['paper_url'];
         year_info.innerHTML = paperImgData[gIndex]['Year'];
         type_info.innerHTML = paperImgData[gIndex]['Paper type'];
+        let urlArr = paperImgData[gIndex].url.split('/');
+        imagename_info.innerHTML = urlArr[urlArr.length - 1];
         //console.log(imgData[id]['Keywords Author'].replace(/,/g, '; ') == "");
         if (paperImgData[gIndex]['Keywords Author'].replace(/,/g, '; ') == "") {
             $("#keyword-info").css("color", "#99a6ad");

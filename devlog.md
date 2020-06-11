@@ -1,7 +1,7 @@
 <!--
  * @Author: Rui Li
  * @Date: 2020-05-13 20:47:58
- * @LastEditTime: 2020-06-10 22:10:49
+ * @LastEditTime: 2020-06-10 23:02:32
  * @Description: 
  * @FilePath: /VisPubFigures/devlog.md
  -->
@@ -94,16 +94,14 @@ title is not correct
 1. tool: change name to VisImageNavigator (VIN)  (done)
 2. for the view detail view, add next and previous button  (done)
 idea: for the paper, create a global array, then find image in this array based on the index.
-注意size slider的正确性
 3. for the view detail view, make it a little bit narrower. (done)
-4. ask the photo to kathrina  (done)
-5. flip the author names
-6. add the copyright notice
+4. flip the author names (done)
+5. add the copyright notice
 “© © 2020 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.”   (done)
-7. add figure/table button to separate these two.   (done)
-8. please update the author duped data - Petra cleaned it up in the VisPubData data. Please grab a new version. 
-9. upload images  (done)
+6. add figure/table button to separate these two.   (done)
+7. please update the author duped data - Petra cleaned it up in the VisPubData data. Please grab a new version. (done)
+8. upload images  (done)
 
 
 
-2020 data is not complete
+2010 data is not complete
