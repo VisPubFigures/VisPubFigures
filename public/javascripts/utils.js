@@ -9,11 +9,11 @@ function autocomplete(inp, arr) {
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
     /*execute a function when someone writes in the text field:*/
-    inp.addEventListener("input", function(e) {
+    inp.addEventListener("input", function (e) {
         var a, b, i, val = this.value;
         /*close any already open lists of autocompleted values*/
         closeAllLists();
-        if (!val) { return false;}
+        if (!val) { return false; }
         currentFocus = -1;
         /*create a DIV element that will contain the items (values):*/
         a = document.createElement("DIV");
@@ -33,7 +33,7 @@ function autocomplete(inp, arr) {
                 /*insert a input field that will hold the current array item's value:*/
                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                 /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function(e) {
+                b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
                     inp.value = this.getElementsByTagName("input")[0].value;
                     /*close the list of autocompleted values,
@@ -45,7 +45,7 @@ function autocomplete(inp, arr) {
         }
     });
     /*execute a function presses a key on the keyboard:*/
-    inp.addEventListener("keydown", function(e) {
+    inp.addEventListener("keydown", function (e) {
         var x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
@@ -105,12 +105,47 @@ function autocomplete(inp, arr) {
  * check if an object is empty
  * @param {} obj 
  */
-function checkEmptyObj(obj){
+function checkEmptyObj(obj) {
     let isEmpty = 1;
-    Object.keys(obj).forEach((d,i)=>{
-        if(obj[d] != 0){
+    Object.keys(obj).forEach((d, i) => {
+        if (obj[d] != 0) {
             isEmpty = 0;
         }
     })
     return isEmpty;
-}   
+}
+
+/**
+ * swap the first and the last element of the string in the array
+ */
+function swapArrayString(arr) {
+    for (let i = 0; i < arr.length; i++) {
+        let str = arr[i];
+        let splitStr = str.split(" ");
+        if (splitStr.indexOf('van') != -1) {
+            //find the index of van
+            let vanIndex = splitStr.indexOf('van');
+            let firstStr = [splitStr[0]];
+            let lastStr = splitStr.slice(vanIndex, splitStr.length);
+            let midStr = splitStr.slice(1, vanIndex);
+            //console.log(splitStr);
+            //console.log(firstStr, midStr, lastStr);
+            let reverseStr = lastStr.concat(midStr, firstStr);
+            let joinStr = reverseStr.join(' ');
+            arr[i] = joinStr;
+            //console.log(joinStr);
+        }
+        else {
+            let firstStr = [splitStr[0]];
+            let lastStr = [splitStr[splitStr.length - 1]];
+            let midStr = splitStr.slice(1, splitStr.length - 1);
+            let reverseStr = lastStr.concat(midStr, firstStr);
+            let joinStr = reverseStr.join(' ');
+            //console.log(joinStr);
+            arr[i] = joinStr;
+        }
+    }
+    return arr;
+}
+
+

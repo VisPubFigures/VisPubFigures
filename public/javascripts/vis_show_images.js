@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-06-10 11:48:52
+ * @LastEditTime: 2020-06-10 21:30:54
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -17,6 +17,9 @@ confDic = {
 var imgDataDic = {};
 
 var gIndex = -1;
+
+var paperImgData = []; //when show papers, push all image data into this array
+var imgPerPagePaper = 0; //number of images in each page, under paper mode.
 
 var unicycle;
 
@@ -83,6 +86,7 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
     var year_info = document.getElementById("year-info");
     var type_info = document.getElementById("paper-type-info");
     var keyword_info = document.getElementById("keyword-info");
+    var imagename_info = document.getElementById('imagename-info');
     $('.image-a').click(function (e) {
         var id = this.id.slice(5);
         gIndex = parseInt(id);
@@ -108,6 +112,8 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
         link_info.innerHTML = imgData[id]['paper_url'];
         year_info.innerHTML = imgData[id]['Year'];
         type_info.innerHTML = imgData[id]['Paper type'];
+        let urlArr = imgData[id].url.split('/');
+        imagename_info.innerHTML = urlArr[urlArr.length - 1];
         //console.log(imgData[id]['Keywords Author'].replace(/,/g, '; ') == "");
         if (imgData[id]['Keywords Author'].replace(/,/g, '; ') == "") {
             $("#keyword-info").css("color", "#99a6ad");
@@ -257,6 +263,7 @@ function presentUPPapers(paperData, totalCount) {
     //set default height
     var img_size = 100;
     var img_count = 0;
+    paperImgData = [];
     for (let paperIndex = 0; paperIndex < paperData.length; paperIndex++) {
         let paperTitle = paperData[paperIndex]['Paper Title'];
         let keywords = paperData[paperIndex]['Keywords Author'];
@@ -288,6 +295,7 @@ function presentUPPapers(paperData, totalCount) {
         document.getElementById("image-gallery").appendChild(paper_div);
         let imgData = paperData[paperIndex]['Figures'];
         for (let i = 0; i < imgData.length; i++) {
+            paperImgData.push(imgData[i]);
             let img_thumburl = imgData[i].url;
             let imageID = imgData[i].imageID;
             let img_width = imgData[i].img_width;
@@ -312,6 +320,7 @@ function presentUPPapers(paperData, totalCount) {
             //console.log("p-"+paperIndex);
             document.getElementById("p-" + paperIndex).appendChild(image_div);
         }
+        imgPerPagePaper = img_count;
     }
 
     // Change the image size as the range slider changes
@@ -346,8 +355,11 @@ function presentUPPapers(paperData, totalCount) {
     var year_info = document.getElementById("year-info");
     var type_info = document.getElementById("paper-type-info");
     var keyword_info = document.getElementById("keyword-info");
+    var imagename_info = document.getElementById('imagename-info')
     $('.vis-img').click(function (e) {
         var id = this.id.split('-')[3];
+        let currentIndex = this.id.split('-')[2];
+        gIndex = parseInt(currentIndex);
         modal.style.display = "block";
         let imageWidth = parseInt(imgDataDic[id].sizeW);
         let imageHeight = parseInt(imgDataDic[id].sizeH);
@@ -369,31 +381,85 @@ function presentUPPapers(paperData, totalCount) {
         link_info.innerHTML = imgDataDic[id]['paper_url'];
         year_info.innerHTML = imgDataDic[id]['Year'];
         type_info.innerHTML = imgDataDic[id]['Paper type'];
+        let urlArr = imgDataDic[id].url.split('/');
+        imagename_info.innerHTML = urlArr[urlArr.length - 1];
         if (imgDataDic[id]['Keywords Author'].replace(/,/g, '; ') == "") {
             $("#keyword-info").css("color", "#99a6ad");
             keyword_info.innerHTML = "none supplied";
         }
         else {
             $("#keyword-info").css("color", "#eeeeee");
-            keyword_info.innerHTML = imgData[id]['Keywords Author'].replace(/,/g, '; ');
+            keyword_info.innerHTML = imgDataDic[id]['Keywords Author'].replace(/,/g, '; ');
         }
         
         //previous and next button
         $('#modal-previous').unbind('click').click(function () { });
         $("#modal-previous").click(async function () {
-            // if(gIndex >= 1){
-            //     gIndex = gIndex - 1;
-            //     updateModalImage();
-            // }
+            if(gIndex >= 1){
+                gIndex = gIndex - 1;
+                updateModalImage();
+            }
         });
         $('#modal-next').unbind('click').click(function () { });
         $("#modal-next").click(async function () {
-            // if(gIndex < img_per_page-1){
-            //     gIndex = gIndex + 1;
-            //     updateModalImage();
-            // }
+            if(gIndex < imgPerPagePaper-1){
+                gIndex = gIndex + 1;
+                updateModalImage();
+            }
         });
     });
+
+
+    //update the modal image based on the id
+    var updateModalImage = function() {
+        modal.style.display = "block";
+        modalImg.src = paperImgData[gIndex].url;
+        //determine the style of the vis-image
+        let imageWidth = parseInt(paperImgData[gIndex].sizeW);
+        let imageHeight = parseInt(paperImgData[gIndex].sizeH);
+        //console.log(imageWidth, imageHeight);
+        if (imageWidth >= imageHeight) {
+            $('#ori-img').attr('class', 'origin-img');
+            //compute the max width it can be
+            let asp = imageWidth / imageHeight;
+            let max_width = 600 * asp;
+            $("#ori-img").css("max-width", max_width);
+        }
+        else {
+            $('#ori-img').attr('class', 'origin-img-tall');
+        }
+        paper_info.innerHTML = paperImgData[gIndex]['Paper Title'];
+        author_info.innerHTML = paperImgData[gIndex]['Author'].replace(/;/g, '; ');
+        link_info.href = paperImgData[gIndex]['paper_url'];
+        link_info.innerHTML = paperImgData[gIndex]['paper_url'];
+        year_info.innerHTML = paperImgData[gIndex]['Year'];
+        type_info.innerHTML = paperImgData[gIndex]['Paper type'];
+        //console.log(imgData[id]['Keywords Author'].replace(/,/g, '; ') == "");
+        if (paperImgData[gIndex]['Keywords Author'].replace(/,/g, '; ') == "") {
+            $("#keyword-info").css("color", "#99a6ad");
+            keyword_info.innerHTML = "none supplied";
+        }
+        else {
+            $("#keyword-info").css("color", "#eeeeee");
+            keyword_info.innerHTML = paperImgData[gIndex]['Keywords Author'].replace(/,/g, '; ');
+        }
+
+        //previous and next button
+        $('#modal-previous').unbind('click').click(function () { });
+        $("#modal-previous").click(async function () {
+            if(gIndex >= 1){
+                gIndex = gIndex - 1;
+                updateModalImage();
+            }
+        });
+        $('#modal-next').unbind('click').click(function () { });
+        $("#modal-next").click(async function () {
+            if(gIndex < imgPerPagePaper-1){
+                gIndex = gIndex + 1;
+                updateModalImage();
+            }
+        });
+    }
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];

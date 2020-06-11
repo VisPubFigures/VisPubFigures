@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-01-16 12:03:29
- * @LastEditTime: 2020-05-25 12:08:00
+ * @LastEditTime: 2020-06-10 22:51:02
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/image_filter.js
  */ 
@@ -58,9 +58,40 @@ function filterDataByKeywords(data, keyword){
  */
 function filterDataByAuthors(data, author){
     var filterData = data.filter(function(item) {
-        return item['Author'].split(';').includes(author);
+        let authorList = swapArrayString(item['Author'].split(';'));
+        return authorList.includes(author);
     });
     return filterData;
+}
+
+/**
+ * return a subset of datasets based on the given figure types
+ * @param {*} data 
+ * @param {*} type 
+ */
+function filterDataByFigureType(data, type){
+    if(type.length == 2){
+        return data;
+    }
+    else if(type.length == 0){
+        return [];
+    }
+    else if(type.length == 1){
+        if(type[0] == 'Figure'){
+            var filterData = data.filter(function(item) {
+                let boolean = parseInt(item['vis_type']) != 16; 
+                return boolean;
+            });
+            return filterData;
+        }
+        else if (type[0] == 'Table'){
+            var filterData = data.filter(function(item) {
+                let boolean = (parseInt(item['vis_type']) == 16); 
+                return boolean;
+            });
+            return filterData;
+        }
+    }
 }
 
 
