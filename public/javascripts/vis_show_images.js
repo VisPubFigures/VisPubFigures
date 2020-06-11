@@ -1,7 +1,7 @@
 /*
  * @Author: Rui Li
  * @Date: 2020-02-22 22:37:33
- * @LastEditTime: 2020-06-11 16:24:58
+ * @LastEditTime: 2020-06-11 18:27:34
  * @Description: 
  * @FilePath: /VisPubFigures/public/javascripts/vis_show_images.js
  */
@@ -22,6 +22,7 @@ var paperImgData = []; //when show papers, push all image data into this array
 var imgPerPagePaper = 0; //number of images in each page, under paper mode.
 
 var unicycle;
+var slider_img_size = 100;
 
 /**
  * present the image in the page
@@ -127,14 +128,14 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
         //previous and next button
         $('#modal-previous').unbind('click').click(function () { });
         $("#modal-previous").click(async function () {
-            if(gIndex >= 1){
+            if (gIndex >= 1) {
                 gIndex = gIndex - 1;
                 updateModalImage();
             }
         });
         $('#modal-next').unbind('click').click(function () { });
         $("#modal-next").click(async function () {
-            if(gIndex < img_per_page-1){
+            if (gIndex < img_per_page - 1) {
                 gIndex = gIndex + 1;
                 updateModalImage();
             }
@@ -143,7 +144,7 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
     });
 
     //update the modal image based on the id
-    var updateModalImage = function() {
+    var updateModalImage = function () {
         modal.style.display = "block";
         modalImg.src = imgData[gIndex].url;
         //determine the style of the vis-image
@@ -181,14 +182,14 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
         //previous and next button
         $('#modal-previous').unbind('click').click(function () { });
         $("#modal-previous").click(async function () {
-            if(gIndex >= 1){
+            if (gIndex >= 1) {
                 gIndex = gIndex - 1;
                 updateModalImage();
             }
         });
         $('#modal-next').unbind('click').click(function () { });
         $("#modal-next").click(async function () {
-            if(gIndex < img_per_page-1){
+            if (gIndex < img_per_page - 1) {
                 gIndex = gIndex + 1;
                 updateModalImage();
             }
@@ -206,11 +207,12 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
     // Change the image size as the range slider changes
     $(document).on('input', '#image-size-slider', function () {
         let size = $(this).val() * 4;
+        slider_img_size = size;
         $(".img-panel").css("height", size + 'px');
         $(".img-panel").each(function () {
             //according to the id to determine the width of the div and the image
             let divID = $(this).attr("id");
-            
+
             let imageID = $(this).attr("id").split('-')[3];
             //console.log($(this).attr("id"));
             let imageIDprefix = $(this).attr("id").slice(9);
@@ -228,6 +230,25 @@ function presentImg(imgData, showAnnotation, sortedKey = 0, imgSize = 1, current
     });
     //show year scent
     showYearScent();
+
+    //rescale all images
+    $(".img-panel").css("height", slider_img_size + 'px');
+    $(".img-panel").each(function () {
+        //according to the id to determine the width of the div and the image
+        let divID = $(this).attr("id");
+        let imageID = $(this).attr("id").split('-')[3];
+        //console.log($(this).attr("id"));
+        let imageIDprefix = $(this).attr("id").slice(9);
+        let img_width = imgDataDic[imageID].sizeW;
+        let img_height = imgDataDic[imageID].sizeH;
+        let asp = img_width / img_height;  //aspect ratio
+        let adjust_width = asp * slider_img_size;
+        let actual_width = adjust_width - 6;
+        let actual_height = slider_img_size - 6;
+        $("#" + divID).css("width", adjust_width + 'px');
+        $("#img-thumb-" + imageIDprefix).css("width", actual_width + 'px');
+        $("#img-thumb-" + imageIDprefix).css("height", actual_height + 'px');
+    });
 
 
     $(window).resize(function () {
@@ -308,7 +329,7 @@ function presentUPPapers(paperData, totalCount) {
             let conf = imgData[i]['Conference'];
             let image_div = document.createElement("div");
             image_div.className = "image-div";
-            
+
             //box-shadow: inset 0px 0px 0px 1px ${confDic[conf]};
             image_div.innerHTML = `
             <div class="img-panel image-grid" id="img-grid-${img_count}-${imageID}" 
@@ -328,6 +349,7 @@ function presentUPPapers(paperData, totalCount) {
     // Change the image size as the range slider changes
     $(document).on('input', '#image-size-slider', function () {
         let size = $(this).val() * 4;
+        slider_img_size = size;
         $(".img-panel").css("height", size + 'px');
         $(".img-panel").each(function () {
             //according to the id to determine the width of the div and the image
@@ -393,18 +415,18 @@ function presentUPPapers(paperData, totalCount) {
             $("#keyword-info").css("color", "#eeeeee");
             keyword_info.innerHTML = imgDataDic[id]['Keywords Author'].replace(/,/g, '; ');
         }
-        
+
         //previous and next button
         $('#modal-previous').unbind('click').click(function () { });
         $("#modal-previous").click(async function () {
-            if(gIndex >= 1){
+            if (gIndex >= 1) {
                 gIndex = gIndex - 1;
                 updateModalImage();
             }
         });
         $('#modal-next').unbind('click').click(function () { });
         $("#modal-next").click(async function () {
-            if(gIndex < imgPerPagePaper-1){
+            if (gIndex < imgPerPagePaper - 1) {
                 gIndex = gIndex + 1;
                 updateModalImage();
             }
@@ -413,7 +435,7 @@ function presentUPPapers(paperData, totalCount) {
 
 
     //update the modal image based on the id
-    var updateModalImage = function() {
+    var updateModalImage = function () {
         modal.style.display = "block";
         modalImg.src = paperImgData[gIndex].url;
         //determine the style of the vis-image
@@ -451,14 +473,14 @@ function presentUPPapers(paperData, totalCount) {
         //previous and next button
         $('#modal-previous').unbind('click').click(function () { });
         $("#modal-previous").click(async function () {
-            if(gIndex >= 1){
+            if (gIndex >= 1) {
                 gIndex = gIndex - 1;
                 updateModalImage();
             }
         });
         $('#modal-next').unbind('click').click(function () { });
         $("#modal-next").click(async function () {
-            if(gIndex < imgPerPagePaper-1){
+            if (gIndex < imgPerPagePaper - 1) {
                 gIndex = gIndex + 1;
                 updateModalImage();
             }
@@ -482,6 +504,24 @@ function presentUPPapers(paperData, totalCount) {
         showYearScent();
     });
 
+    //rescale all images
+    $(".img-panel").css("height", slider_img_size + 'px');
+    $(".img-panel").each(function () {
+        //according to the id to determine the width of the div and the image
+        let divID = $(this).attr("id");
+        let imageID = $(this).attr("id").split('-')[3];
+        let imageIDprefix = $(this).attr("id").slice(9);
+        //console.log(imageIDprefix);
+        let img_width = imgDataDic[imageID].sizeW;
+        let img_height = imgDataDic[imageID].sizeH;
+        let asp = img_width / img_height;  //aspect ratio
+        let adjust_width = asp * slider_img_size;
+        let actual_width = adjust_width - 6;
+        let actual_height = slider_img_size - 6;
+        $("#" + divID).css("width", adjust_width + 'px');
+        $("#img-thumb-" + imageIDprefix).css("width", actual_width + 'px');
+        $("#img-thumb-" + imageIDprefix).css("height", actual_height + 'px');
+    });
 
 }
 

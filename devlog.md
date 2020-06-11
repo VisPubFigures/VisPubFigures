@@ -1,7 +1,7 @@
 <!--
  * @Author: Rui Li
  * @Date: 2020-05-13 20:47:58
- * @LastEditTime: 2020-06-10 23:02:32
+ * @LastEditTime: 2020-06-11 18:21:23
  * @Description: 
  * @FilePath: /VisPubFigures/devlog.md
  -->
@@ -102,6 +102,6 @@ idea: for the paper, create a global array, then find image in this array based 
 7. please update the author duped data - Petra cleaned it up in the VisPubData data. Please grab a new version. (done)
 8. upload images  (done)
 
-
+9. 修复scale的bug
 
 2010 data is not complete
